@@ -1,0 +1,25 @@
+# virtual environment
+.venv/
+
+# datasets — large files, re-downloadable
+data/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Walk 07 — raw/intermediate pipeline outputs (large, re-generatable)
+# The processed GeoJSON in web/assets/ is intentionally NOT ignored — it's small and committed.
+walks/walk-07-far/pipeline/cache/
+*.shp
+*.dbf
+*.shx
+*.prj
+*.cpg
+walks/walk-07-far/pipeline/*.geojson
