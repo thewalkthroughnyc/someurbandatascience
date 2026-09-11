@@ -1,0 +1,11 @@
+# raw data: never edited, never committed (cache lives here too)
+data/raw/*
+!data/raw/.gitkeep
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+.env

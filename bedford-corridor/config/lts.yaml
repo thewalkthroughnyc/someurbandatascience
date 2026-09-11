@@ -1,0 +1,69 @@
+# Level of Traffic Stress (LTS), per block, filled in from fieldwork.
+#
+# This file is a DATA SOURCE, not a derived output — nothing in the pipeline
+# computes these values. Score each block 1-4 by riding or walking it and
+# judging by the Mineta Transportation Institute / Furth LTS rubric:
+#
+#   1 = suitable for children; physically separated or very low speed+volume
+#   2 = suitable for most adults; comfortable but shares space with traffic
+#   3 = comfortable only for "confident" cyclists; moderate traffic stress
+#   4 = uncomfortable for nearly everyone; high speed/volume, no separation
+#
+# block_id must match the ids segmentation.segment_corridor() will produce
+# (from_street/to_street pairs from config/corridor.py:CROSS_STREETS, in
+# order). Leave `lts: null` and `notes: ""` until you've actually surveyed
+# the block — build_json.py passes null through rather than guessing.
+
+blocks:
+  - from_street: "Dean Street"
+    to_street: "Atlantic Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Atlantic Avenue"
+    to_street: "Fulton Street"
+    lts: null
+    notes: ""
+  - from_street: "Fulton Street"
+    to_street: "Hancock Street"
+    lts: null
+    notes: ""
+  - from_street: "Hancock Street"
+    to_street: "Putnam Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Putnam Avenue"
+    to_street: "Monroe Street"
+    lts: null
+    notes: ""
+  - from_street: "Monroe Street"
+    to_street: "Gates Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Gates Avenue"
+    to_street: "Greene Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Greene Avenue"
+    to_street: "Lafayette Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Lafayette Avenue"
+    to_street: "DeKalb Avenue"
+    lts: null
+    notes: ""
+  - from_street: "DeKalb Avenue"
+    to_street: "Willoughby Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Willoughby Avenue"
+    to_street: "Myrtle Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Myrtle Avenue"
+    to_street: "Park Avenue"
+    lts: null
+    notes: ""
+  - from_street: "Park Avenue"
+    to_street: "Flushing Avenue"
+    lts: null
+    notes: ""

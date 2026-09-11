@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="stylesheet" href="ds-industry.scoped.css">
+<script src="image-slot.js"></script>
+</helmet>
+<div class="ds-industry" style="width:100%;min-height:100vh;background-color:var(--color-bg);background-image:linear-gradient(color-mix(in srgb, var(--color-text) 5%, transparent) 1px, transparent 1px),linear-gradient(90deg, color-mix(in srgb, var(--color-text) 5%, transparent) 1px, transparent 1px);background-size:32px 32px;font-family:var(--font-body);color:var(--color-text)">
+
+<nav class="nav" style="padding:28px 80px">
+<a href="Home.dc.html" class="nav-brand" style="text-decoration:none;color:inherit">Walkthrough NYC</a>
+<a href="Questions.dc.html" aria-current="page">Questions</a>
+<a href="Walks.dc.html">Walks</a>
+<a href="Writing.dc.html">Writing</a>
+<a href="About.dc.html">About</a>
+</nav>
+
+<section style="padding:8px 80px 0;max-width:1440px;margin:0 auto">
+<a href="Questions.dc.html" class="btn btn-ghost" style="padding-inline:0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>All questions</a>
+</section>
+
+<section style="padding:20px 80px 56px;max-width:1440px;margin:0 auto">
+<span class="tag tag-accent">LIVE</span>
+<h1 style="margin:16px 0 10px;max-width:16ch">What does FAR actually do to a block?</h1>
+<p style="font-size:17px;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0">60 Cedar Street, Downtown Brooklyn.</p>
+</section>
+
+<section id="anchor" style="padding:0 80px 96px;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+<div class="duotone blueprint">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<image-slot id="far-anchor-photo" shape="rect" placeholder="60 Cedar Street — anchor site photo" style="width:100%;height:380px"></image-slot>
+</div>
+<div>
+<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:14px">The anchor site</div>
+<p style="font-size:16px;line-height:1.65;margin:0 0 20px">60 Cedar Street sits on a standard Downtown Brooklyn block, zoned R6 general district. Next door, a 2-story rowhouse sits on the same zoning designation. Same rules, two very different buildings.</p>
+<p style="font-size:16px;line-height:1.65;margin:0 0 28px">I measured both lots on site: frontage, depth, and stories. That's the raw material for the math below.</p>
+<div style="display:flex;flex-wrap:wrap;gap:28px;padding-top:20px;border-top:1px solid var(--color-divider)">
+<div><div style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent);margin-bottom:4px">Address</div><div style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:16px">60 Cedar Street</div></div>
+<div><div style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent);margin-bottom:4px">Zoning</div><div style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:16px">R6 general district</div></div>
+<div><div style="font-size:11px;color:color-mix(in srgb, var(--color-text) 55%, transparent);margin-bottom:4px">Stories</div><div style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:16px">2 (rowhouse) / 19 (tower)</div></div>
+</div>
+</div>
+</section>
+
+<section id="math" style="padding:0 80px 96px;max-width:1440px;margin:0 auto">
+<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:20px">The math</div>
+<div class="blueprint" style="padding:40px">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<div style="font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:22px;margin-bottom:28px">FAR = total floor area ÷ lot area</div>
+<div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;padding-bottom:20px;border-bottom:1px solid var(--color-divider);margin-bottom:20px">
+<div style="font-family:var(--font-body);color:color-mix(in srgb, var(--color-text) 65%, transparent)">2-story rowhouse</div>
+<div>2,000 sq ft ÷ 2,000 sq ft lot</div>
+<div style="text-align:right">FAR 1.0</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:16px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;padding-bottom:28px">
+<div style="font-family:var(--font-body);color:color-mix(in srgb, var(--color-text) 65%, transparent)">19-story tower</div>
+<div>34,000 sq ft ÷ 8,000 sq ft lot</div>
+<div style="text-align:right;color:var(--color-accent-700)">FAR 4.3</div>
+</div>
+<p style="font-size:15px;margin:0 0 4px;padding-top:20px;border-top:1px solid var(--color-divider)">R6 general district allows a FAR up to roughly 3.0 as-of-right, higher with an inclusionary housing bonus — which is how a lot this size clears 4.3.</p>
+</div>
+<p style="font-size:12px;font-style:italic;color:color-mix(in srgb, var(--color-text) 50%, transparent);margin:14px 0 0">Worked with placeholder measurements — swap in your field numbers when you run this walk.</p>
+</section>
+
+<section id="interactive" style="padding:0 80px 96px;max-width:1440px;margin:0 auto">
+<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:20px">The interactive</div>
+<div class="blueprint" style="height:420px;display:flex;align-items:center;justify-content:center;background-image:repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-text) 6%, transparent) 0 2px, transparent 2px 14px)">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<div style="text-align:center">
+<div style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin-bottom:10px">FAR envelope tool</div>
+<p style="font-size:14px;max-width:38ch;color:color-mix(in srgb, var(--color-text) 60%, transparent);margin:0 auto">Drag the zoning envelope to see how floor area trades off against height, setbacks, and lot coverage.</p>
+</div>
+</div>
+</section>
+
+<section id="essay" style="padding:0 80px 96px;max-width:1440px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:64px">
+<div>
+<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:20px">The essay</div>
+<p style="font-size:18px;line-height:1.7;margin:0 0 20px">60 Cedar Street is nineteen stories. Its next-door neighbor is two. Both sit on the same R6 zoning designation, on lots of comparable size, on the same block.</p>
+<p style="font-size:18px;line-height:1.7;margin:0 0 20px">Zoning didn't produce the tower. It permitted it. The rowhouse owner built to code decades ago. The tower's owner assembled a larger lot, added an affordable-housing bonus, and built to the maximum the math allowed. The zoning stayed the same. Only the math changed.</p>
+<p style="font-size:18px;line-height:1.7;margin:0 0 28px">Floor area ratio is the number that explains the gap.</p>
+<a href="#" class="btn btn-secondary">Continue reading on Substack <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+</div>
+</section>
+
+<section id="kit" style="padding:0 80px 96px;max-width:1440px;margin:0 auto">
+<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:20px">The kit</div>
+<p style="font-size:15px;max-width:60ch;color:color-mix(in srgb, var(--color-text) 70%, transparent);margin:0 0 28px">Everything you need to run this walk yourself: a measurement sheet and a facilitator guide.</p>
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px">
+<a href="#" class="card blueprint" style="text-decoration:none;color:inherit;flex-direction:row;align-items:center;padding:var(--space-8)" style-hover="border-color:var(--color-accent)">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 4v12m0 0 5-5m-5 5-5-5M4 20h16"></path></svg>
+<div><div class="card-title">Field sheet</div><div class="card-meta">PDF · 2 pages</div></div>
+</a>
+<a href="#" class="card blueprint" style="text-decoration:none;color:inherit;flex-direction:row;align-items:center;padding:var(--space-8)" style-hover="border-color:var(--color-accent)">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 4v12m0 0 5-5m-5 5-5-5M4 20h16"></path></svg>
+<div><div class="card-title">Facilitator guide</div><div class="card-meta">PDF · 6 pages</div></div>
+</a>
+</div>
+</section>
+
+<section id="walk" style="padding:0 80px 96px;max-width:1440px;margin:0 auto">
+<div class="card blueprint" style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:32px 40px">
+<i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+<div>
+<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);margin-bottom:10px">The walk</div>
+<div class="card-title" style="font-size:22px;margin-bottom:8px">Walk 04 — FAR, Downtown Brooklyn</div>
+<div class="card-meta" style="font-size:13px">Sept 20, 2026 · Free · RSVP required</div>
+</div>
+<a href="Walks.dc.html" class="btn btn-primary">RSVP</a>
+</div>
+</section>
+
+<footer style="padding:48px 80px;border-top:1px solid var(--color-divider);display:flex;justify-content:space-between;align-items:end;gap:24px;max-width:1440px;margin:0 auto">
+<div>
+<p style="max-width:44ch;margin:0 0 16px">I teach 7th-grade math in Brooklyn. Walkthrough NYC is the same job, done on the sidewalk instead of the classroom.</p>
+<a href="About.dc.html#contact" class="btn btn-secondary">Get in touch</a>
+</div>
+<div style="text-align:right;font-size:12px;color:color-mix(in srgb, var(--color-text) 55%, transparent)">
+<div style="display:flex;gap:16px;justify-content:flex-end;margin-bottom:10px"><a href="Questions.dc.html">Questions</a><a href="Walks.dc.html">Walks</a><a href="Writing.dc.html">Writing</a><a href="About.dc.html">About</a></div>
+© 2026 Walkthrough NYC
+</div>
+</footer>
+</div>
+</x-dc>
+</body>
+</html>

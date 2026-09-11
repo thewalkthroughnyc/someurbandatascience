@@ -1,0 +1,113 @@
+/* Walk No. 07 — styles for the interactive FAR map.
+   Loaded alongside index.html's inline <style> block; only adds what
+   that block doesn't already cover (the map container, legend, and
+   Leaflet popup overrides to match the site's brand). */
+
+.far-search {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 4px;
+}
+
+.far-search input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  border: 2px solid var(--ink, #191C1A);
+  border-radius: 2px;
+  padding: 10px 12px;
+  font-family: "Public Sans", system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  background: #fff;
+  color: var(--ink, #191C1A);
+}
+
+.far-search input[type="text"]::placeholder {
+  color: rgba(25, 28, 26, .45);
+}
+
+.far-search button {
+  border: 2px solid var(--ink, #191C1A);
+  border-radius: 2px;
+  background: var(--tape, #F2B63C);
+  color: var(--ink, #191C1A);
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.far-search button:hover {
+  background: #ecac1f;
+}
+
+.far-search-msg {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12.5px;
+  color: #C0392B;
+  border: 1.5px solid #C0392B;
+  border-radius: 2px;
+  padding: 8px 10px;
+  margin: 0 0 10px;
+  background: rgba(192, 57, 43, .06);
+}
+
+@media (max-width: 480px) {
+  .far-search { flex-direction: column; }
+  .far-search button { padding: 10px 16px; }
+}
+
+.map-embed {
+  height: 460px;
+  width: 100%;
+  border: 2px solid var(--ink, #191C1A);
+  border-radius: 2px;
+  margin: 14px 0;
+}
+
+.maplegend {
+  margin-top: 10px;
+  font-size: 12px;
+  color: rgba(25, 28, 26, .75);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--ink, #191C1A);
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+/* Leaflet ships its own popup chrome — override just enough to match
+   the site's paper/ink/mono system instead of Leaflet's default look. */
+.leaflet-popup-content-wrapper {
+  background: #fff;
+  color: var(--ink, #191C1A);
+  border: 1.5px solid var(--ink, #191C1A);
+  border-radius: 3px;
+  font-family: "Public Sans", system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+}
+.leaflet-popup-tip {
+  background: #fff;
+  border: 1.5px solid var(--ink, #191C1A);
+}
+.leaflet-popup-content a {
+  color: var(--blue, #2456A6);
+}
+.popup-bbl {
+  color: rgba(25, 28, 26, .6);
+  font-size: 11px;
+}
+
+@media (max-width: 480px) {
+  .map-embed { height: 360px; }
+}

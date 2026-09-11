@@ -20,6 +20,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
 
 <style>
   :root{
@@ -155,12 +157,12 @@
     <p class="lede">A public math walk about the space Bushwick is legally allowed to build — and hasn't. Same zoning law, wildly different buildings. Come measure the gap in between.</p>
 
     <div class="datebox">
-      <strong>SAT &middot; JULY 18, 2026</strong>
+      <strong>SAT &middot; AUGUST 29, 2026</strong>
       Start time + meeting point announced this week.<br>RSVPs hear it first.
     </div>
 
     <!-- EDIT: paste Partiful URL below -->
-    <a class="rsvp" href="https://partiful.com/e/QpXfoICoXEM5d3zVC5Np?c=8yrAgCFX">RSVP on Partiful &rarr;</a>
+    <a class="rsvp" href="https://partiful.com/e/IKH33f4kudkrXz1VcMkV?c=4rHg7C6y">RSVP on Partiful &rarr;</a>
     <p class="rsvp-note">Free &middot; rain or shine &middot; bring a tape measure if you have one</p>
   </section>
 
@@ -223,22 +225,38 @@
     </figure>
   </section>
 
-  <!-- WEEKEND BUILD: replace this section with the interactive FAR map. Keep id="map". -->
-<section class='mapcard' id="map">
-  <iframe 
-    src="bushwick_far_map.html" 
-    width="100%" 
-    height="500px" 
-    style="border:none;">
-  </iframe>
-</section>
-
-    
-    <span class="drops">DROPS WED &middot; JULY 15</span>
+  <section class='mapcard' id="map">
+    <span class="drops">FRI&middot; AUGUST 14</span>
     <h2>Every lot has a number</h2>
-    <p>The interactive FAR map lands right here: tap any lot in Bushwick and see what's built, what's allowed, and the gap between them — plus the neighborhood-wide total.</p>
+    <form id="far-search" class="far-search" role="search">
+      <input type="text" id="far-search-input" placeholder="Loading Bushwick lots…" autocomplete="off" aria-label="Search a Bushwick address" disabled>
+      <button type="submit" disabled>Go</button>
+    </form>
+    <p id="far-search-msg" class="far-search-msg" role="alert" hidden></p>
+    <div id="far-map-lots" class="map-embed"></div>
+    <p class="maplegend mono">
+      <span><span class="legend-swatch" style="background:#3A9D5D"></span>filling its FAR</span>
+      <span><span class="legend-swatch" style="background:#B5C93C"></span></span>
+      <span><span class="legend-swatch" style="background:#E08A2B"></span></span>
+      <span><span class="legend-swatch" style="background:#C0392B"></span>large unused gap</span>
+      &middot; click a dot for address, built vs. allowed FAR, Street View
+    </p>
+    <p>Tap any lot in Bushwick and see what's built, what's allowed, and the gap between them.</p>
     <!-- EDIT: paste Substack post URL below -->
     <p><a href="https://open.substack.com/pub/thewalkthroughnyc/p/the-tower-and-the-rowhouses?r=7liqqp&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true">Read the argument on Substack &rarr;</a></p>
+  </section>
+
+  <section class='mapcard' id="map-blockgroups">
+    <h2>The neighborhood total</h2>
+    <div id="far-map-bg" class="map-embed"></div>
+    <p class="maplegend mono">
+      <span><span class="legend-swatch" style="background:#F1F2ED"></span>low</span>
+      <span><span class="legend-swatch" style="background:#F2B63C"></span></span>
+      <span><span class="legend-swatch" style="background:#D98A2B"></span></span>
+      <span><span class="legend-swatch" style="background:#A8471F"></span></span>
+      <span><span class="legend-swatch" style="background:#191C1A"></span>high</span>
+      average unused FAR by Census block group &middot; hover a block group for the number
+    </p>
   </section>
 
   <section class="expect">
@@ -254,7 +272,7 @@
     <p class="motto">The math<br>is the argument.</p>
     <nav class="foot-links" aria-label="Links">
       <!-- EDIT: paste Partiful URL below -->
-      <a href="#">RSVP</a>
+      <a href="https://partiful.com/e/IKH33f4kudkrXz1VcMkV?c=4rHg7C6y">RSVP</a>
       <a href="https://www.instagram.com/thewalkthroughnyc" rel="noopener">Instagram</a>
       <a href="https://www.tiktok.com/@thewalkthroughnyc" rel="noopener">TikTok</a>
       <!-- EDIT: paste Substack URL below -->
@@ -264,5 +282,7 @@
   </div>
 </footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="map.js"></script>
 </body>
 </html>

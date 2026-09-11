@@ -23,3 +23,12 @@ walks/walk-07-far/pipeline/cache/
 *.prj
 *.cpg
 walks/walk-07-far/pipeline/*.geojson
+
+# Bedford corridor project — raw downloads / route cache / OSRM extract,
+# all large and re-generatable. web/data/corridor.json IS committed
+# (small, and shows the site's current, honest data state).
+bedford-corridor/data_cache/
+bedford-corridor/*.egg-info/
+
+# pytest
+.pytest_cache/

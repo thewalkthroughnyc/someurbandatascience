@@ -1,0 +1,8 @@
+{
+  "beta1_per_min": -0.02,
+  "p0_monthly_rent": 2800,
+  "half_life_min": 34.7,
+  "n_tracts": null,
+  "source": "dummy — scaffold the p5 sketch against these; `make model` overwrites with real values",
+  "generated": "2026-09-07"
+}

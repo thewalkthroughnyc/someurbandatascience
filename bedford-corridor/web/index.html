@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bedford Avenue Corridor — Bike Lane Safety</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <h1>Bedford Avenue Corridor</h1>
+  <p class="subtitle">Dean Street to Flushing Avenue, Brooklyn — cyclist safety before/after the 2025 protection removal</p>
+</header>
+
+<div class="controls" role="toolbar" aria-label="Map view controls">
+  <div class="control-group" role="group" aria-label="Data view">
+    <span class="control-label">View</span>
+    <button class="view-btn active" data-view="raw">Raw injury counts</button>
+    <button class="view-btn" data-view="rate">Injuries per 10k trips</button>
+    <button class="view-btn" data-view="lts">Level of traffic stress</button>
+  </div>
+  <div class="control-group" role="group" aria-label="Time period">
+    <span class="control-label">Period</span>
+    <button class="period-btn active" data-period="before">Before</button>
+    <button class="period-btn" data-period="after">After</button>
+  </div>
+</div>
+
+<main class="layout">
+  <div id="map"></div>
+
+  <aside id="panel" class="panel">
+    <div class="panel-empty">Hover or click a block for details.</div>
+  </aside>
+</main>
+
+<footer class="app-footer">
+  <div id="data-status" class="data-status"></div>
+  <div class="legend" id="legend"></div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="map.js"></script>
+</body>
+</html>

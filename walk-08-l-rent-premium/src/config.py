@@ -1,0 +1,90 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+"""Walk No. 08 — all knobs in one place.
+
+Every parameter you might turn at a gate lives here, so a Gate 1 fix
+("widen the band") is a one-line edit, not a code hunt.
+"""
+
+from pathlib import Path
+
+# ---------------------------------------------------------------- paths
+ROOT = Path(__file__).resolve().parents[1]
+RAW = ROOT / "data" / "raw"
+PROCESSED = ROOT / "data" / "processed"
+FIGURES = ROOT / "outputs" / "figures"
+TOOL = ROOT / "outputs" / "tool"
+
+# ---------------------------------------------------------------- ACS
+ACS_YEAR = 2024          # 2020-2024 5-year (released Jan 2026). Script falls
+                         # back to 2023 automatically if this vintage 404s.
+STATE_FIPS = "36"        # New York
+COUNTY_FIPS = ["047", "081"]  # Kings AND Queens — the band crosses into
+                              # Ridgewood/Maspeth along the Wyckoff Av stretch
+                              # and across Newtown Creek. Kings-only silently
+                              # clips the north side of the sample.
+
+# Census API now requires a key (free, instant): 
+#   https://api.census.gov/data/key_signup.html
+# Set it as an environment variable:  export CENSUS_API_KEY=...
+# The script will try keyless first and tell you loudly if it's rejected.
+
+ACS_VARS = {
+    "B25064_001E": "med_rent",        # median gross rent ($/mo) — the outcome
+    "B25064_001M": "med_rent_moe",    # its margin of error (90% CI)
+    "B01003_001E": "pop",
+    "B25003_001E": "occ_units",
+    "B25003_003E": "renter_hh",       # renter-occupied units
+    "B25035_001E": "med_year_built",
+    "B25018_001E": "med_rooms",
+    "B25024_001E": "units_total",
+    "B25024_002E": "units_1det",
+    "B25024_003E": "units_1att",
+    "B25024_008E": "units_20_49",
+    "B25024_009E": "units_50plus",
+}
+
+# ---------------------------------------------------------------- geography
+# TIGER (not cartographic-boundary) because it carries INTPTLAT/INTPTLON —
+# internal points guaranteed to fall inside the polygon, better than raw
+# centroids for weird tract shapes.
+TIGER_URL = "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_36_tract.zip"
+
+STATIONS_URL = "https://data.ny.gov/api/views/39hk-dx4f/rows.csv?accessType=DOWNLOAD"
+
+EPSG_LOCAL = 2263        # NY Long Island State Plane, units = US survey FEET.
+                         # You'll meet this CRS in every NYC dataset; get used
+                         # to it now. NOTE the feet — meters live elsewhere.
+FT_PER_MILE = 5280.0
+M_PER_FT = 0.3048
+
+# ---------------------------------------------------------------- the band
+BAND_RADIUS_MILES = 1.25   # buffer around the L corridor line, both sides.
+                           # ~1.25 mi ≈ a 25-30 min network walk: enough tail
+                           # past the premium's plausible reach to pin down
+                           # the far-from-station baseline.
+                           # GATE 1 LEVER: if the tract count is thin, raise
+                           # this (1.5) and rerun 01. Nothing else changes.
+NONL_STATION_MARGIN_MILES = 0.5   # non-L stations just outside the band still
+                                  # matter for the control; include them.
+
+# ---------------------------------------------------------------- walk times
+GRAPH_MARGIN_MILES = 0.35  # build the walk network slightly beyond the band
+                           # so border tracts aren't routed on a clipped graph
+WALK_SPEED_M_PER_MIN = 80.0   # 4.8 km/h ≈ 3 mph
+SNAP_FLAG_M = 400          # flag tracts whose internal point snapped to the
+                           # network more than this far away (parks, cemeteries)
+
+# ---------------------------------------------------------------- cleaning
+MIN_RENTER_HH = 100        # drop tracts with fewer renter households than this
+                           # — kills cemetery/industrial tracts (Evergreens,
+                           # East Williamsburg) where a "median rent" is noise
+CV_FLAG = 0.30             # flag low-reliability medians: coefficient of
+                           # variation = (MOE / 1.645) / estimate > 0.30
+RENT_TOPCODE = 3500        # ACS top-codes median gross rent ("$3,500+").
+                           # Verify against the 2024 vintage docs; tracts at
+                           # the cap get flagged either way — matters at the
+                           # Bedford end, where true medians exceed it.
+
+GATE1_COMFORTABLE_N = 120  # suggestion only — the gate decision is yours
