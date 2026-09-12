@@ -83,8 +83,14 @@ def rent_cv(est: pd.Series, moe: pd.Series) -> pd.Series:
     return (moe / 1.645) / est
 
 
-def clean_tracts(df: pd.DataFrame) -> tuple[pd.DataFrame, list[tuple[str, int]]]:
+def clean_tracts(
+    df: pd.DataFrame, rent_col: str = "med_rent", moe_col: str = "med_rent_moe"
+) -> tuple[pd.DataFrame, list[tuple[str, int]]]:
     """Apply the cleaning rules; return (clean_df, log).
+
+    rent_col/moe_col pick which rent series to clean — the blended
+    med_rent by default, or one of the bedroom-specific columns
+    (med_rent_1br, med_rent_2br, med_rent_3br) for the per-bedroom cuts.
 
     The log is a list of (decision, rows affected) — this is the
     'log every decision and the rows it cost' rule made mechanical.
@@ -94,14 +100,14 @@ def clean_tracts(df: pd.DataFrame) -> tuple[pd.DataFrame, list[tuple[str, int]]]
     df = df.copy()
 
     n0 = len(df)
-    df = df[df["med_rent"].notna()]
+    df = df[df[rent_col].notna()]
     log.append(("Dropped tracts with no ACS median-rent estimate (jam values / suppressed)", n0 - len(df)))
 
     # Flags first (kept, not dropped — robustness checks re-run without them)
-    df["flag_topcoded"] = df["med_rent"] >= C.RENT_TOPCODE
+    df["flag_topcoded"] = df[rent_col] >= C.RENT_TOPCODE
     log.append((f"Flagged tracts at/above the ${C.RENT_TOPCODE:,} ACS top-code (kept)", int(df["flag_topcoded"].sum())))
 
-    df["rent_cv"] = rent_cv(df["med_rent"], df["med_rent_moe"])
+    df["rent_cv"] = rent_cv(df[rent_col], df[moe_col])
     df["flag_low_reliability"] = df["rent_cv"] > C.CV_FLAG
     log.append((f"Flagged low-reliability medians, CV > {C.CV_FLAG:.0%} (kept)", int(df["flag_low_reliability"].sum())))
 

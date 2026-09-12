@@ -43,6 +43,16 @@ ACS_VARS = {
     "B25024_003E": "units_1att",
     "B25024_008E": "units_20_49",
     "B25024_009E": "units_50plus",
+
+    # B25031 — median gross rent, broken out by bedroom count (same concept
+    # as B25064, split into bins). Variable codes are standard across ACS
+    # vintages; if 01 rejects one, check the 2024 table shell.
+    "B25031_003E": "med_rent_1br",
+    "B25031_003M": "med_rent_1br_moe",
+    "B25031_004E": "med_rent_2br",
+    "B25031_004M": "med_rent_2br_moe",
+    "B25031_005E": "med_rent_3br",
+    "B25031_005M": "med_rent_3br_moe",
 }
 
 # ---------------------------------------------------------------- geography
