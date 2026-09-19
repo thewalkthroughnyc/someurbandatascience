@@ -1,0 +1,801 @@
+<title>The Ridgewood Rent Gradient</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root {
+  --ground: #EDE8DF;
+  --surface: #FBF9F5;
+  --surface-2: #F3EFE7;
+  --ink: #211C17;
+  --ink-2: #5C534A;
+  --ink-3: #7D7469;
+  --line: #DCD4C6;
+  --m: #C4420A;
+  --m-bullet: #FF6319;
+  --m-soft: rgba(196, 66, 10, 0.10);
+  --m-grid: rgba(196, 66, 10, 0.16);
+
+  --display: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #16130F;
+    --surface: #211D19;
+    --surface-2: #2B2620;
+    --ink: #F5F1EA;
+    --ink-2: #B8AFA3;
+    --ink-3: #877E72;
+    --line: #372F27;
+    --m: #FF7A38;
+    --m-bullet: #FF6319;
+    --m-soft: rgba(255, 122, 56, 0.14);
+    --m-grid: rgba(255, 122, 56, 0.20);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground: #16130F;
+  --surface: #211D19;
+  --surface-2: #2B2620;
+  --ink: #F5F1EA;
+  --ink-2: #B8AFA3;
+  --ink-3: #877E72;
+  --line: #372F27;
+  --m: #FF7A38;
+  --m-bullet: #FF6319;
+  --m-soft: rgba(255, 122, 56, 0.14);
+  --m-grid: rgba(255, 122, 56, 0.20);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  margin: 0;
+  padding: 28px 20px 64px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* ---------- header ---------- */
+
+.masthead { display: flex; flex-direction: column; gap: 12px; }
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.bullet {
+  display: inline-grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--m-bullet);
+  color: #fff;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(30px, 5.6vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.standfirst {
+  margin: 0;
+  font-size: 18px;
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+
+.standfirst strong { color: var(--ink); font-weight: 600; }
+
+/* ---------- panel ---------- */
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 13px;
+}
+
+.panel-title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  margin: 0;
+}
+
+.panel-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- controls ---------- */
+
+.controls { display: flex; flex-direction: column; gap: 17px; }
+
+.field { display: flex; flex-direction: column; gap: 7px; }
+
+.field-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.field-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--m);
+  letter-spacing: 0;
+  text-transform: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.segmented button {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 9px 4px;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 120ms, color 120ms, border-color 120ms;
+}
+
+.segmented button:hover { color: var(--ink); }
+
+.segmented button[aria-pressed="true"] {
+  background: var(--m);
+  border-color: var(--m);
+  color: #fff;
+  font-weight: 600;
+}
+
+.rent-input {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface-2);
+  overflow: hidden;
+  max-width: 190px;
+}
+
+.rent-input span {
+  font-family: var(--mono);
+  font-size: 15px;
+  color: var(--ink-3);
+  padding: 0 4px 0 11px;
+}
+
+.rent-input input {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  padding: 10px 11px 10px 2px;
+  width: 100%;
+  min-width: 0;
+}
+
+.rent-input input:focus { outline: none; }
+.rent-input:focus-within { border-color: var(--m); box-shadow: 0 0 0 2px var(--m-soft); }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 26px;
+  background: transparent;
+  cursor: pointer;
+  margin: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -9px;
+  border-radius: 50%;
+  background: var(--m);
+  border: 3px solid var(--surface);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--m);
+  border: 3px solid var(--surface);
+}
+
+:focus-visible { outline: 2px solid var(--m); outline-offset: 2px; }
+
+/* ---------- readout ---------- */
+
+.readout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.readout > div {
+  background: var(--surface);
+  padding: 15px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.readout dt {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+.readout dd {
+  font-family: var(--display);
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.readout .sub {
+  font-family: var(--body);
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+
+.verdict { color: var(--m); }
+
+/* ---------- chart ---------- */
+
+.chart-holder { overflow-x: auto; }
+svg.chart { display: block; width: 100%; height: auto; }
+
+.chart-foot {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 14px;
+}
+
+/* ---------- station strip ---------- */
+
+.strip { display: flex; flex-direction: column; gap: 0; }
+
+.strip-row {
+  display: grid;
+  grid-template-columns: 26px 1fr 74px;
+  align-items: center;
+  gap: 11px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.strip-row:last-child { border-bottom: 0; }
+
+.strip-seq {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+}
+
+.strip-name {
+  font-family: var(--display);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+}
+
+.strip-name em {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.strip-track {
+  position: relative;
+  height: 9px;
+  background: linear-gradient(to right, var(--line), var(--line)) center / 100% 1px no-repeat;
+}
+
+.strip-dot {
+  position: absolute;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ink);
+  transform: translateX(-50%);
+}
+
+.strip-dot.low-n {
+  background: var(--surface);
+  border: 2px solid var(--ink-3);
+  width: 10px;
+  height: 10px;
+  top: -0.5px;
+}
+
+.strip-val {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.strip-ends {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 4px;
+}
+
+/* ---------- caveats ---------- */
+
+.caveats { display: flex; flex-direction: column; gap: 13px; }
+
+.caveat {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  gap: 11px;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.caveat::before {
+  content: "";
+  width: 3px;
+  height: 100%;
+  background: var(--line);
+  border-radius: 2px;
+  grid-column: 1;
+}
+
+.caveat b { color: var(--ink); font-weight: 600; }
+
+footer {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--ink-3);
+  letter-spacing: 0.02em;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+footer b { color: var(--ink-2); font-weight: 500; }
+
+@media (max-width: 560px) {
+  .readout { grid-template-columns: 1fr; }
+  .strip-row { grid-template-columns: 22px 1fr 66px; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">
+      <span class="bullet">M</span>
+      <span>Walk No. 08 · The Walkthrough NYC</span>
+    </div>
+    <h1>The Ridgewood Rent Gradient</h1>
+    <p class="standfirst">
+      Across 227 census tracts, rent falls about <strong>half a percent for every
+      minute</strong> you walk away from Ridgewood's M-only stations. Put your own
+      rent in and see where you land against the model.
+    </p>
+  </header>
+
+  <section class="panel" aria-labelledby="tool-title">
+    <div class="panel-head">
+      <h2 class="panel-title" id="tool-title">Where does your rent sit?</h2>
+      <span class="panel-note" id="preset-note">Example — change these</span>
+    </div>
+
+    <div class="controls">
+      <div class="field">
+        <div class="field-label"><span>Your apartment</span></div>
+        <div class="segmented" role="group" aria-label="Bedroom size">
+          <button type="button" data-series="combined" aria-pressed="false">Any</button>
+          <button type="button" data-series="1br" aria-pressed="false">1 BR</button>
+          <button type="button" data-series="2br" aria-pressed="true">2 BR</button>
+          <button type="button" data-series="3br" aria-pressed="false">3 BR</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="rent"><span>Your rent, per month</span></label>
+        <div class="rent-input">
+          <span>$</span>
+          <input id="rent" type="number" inputmode="numeric" min="300" max="9000"
+                 step="25" value="2100" aria-describedby="rent-help">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="walk">
+          <span>Your walk to the nearest M stop</span>
+          <span class="field-value" id="walk-value">12 min</span>
+        </label>
+        <input id="walk" type="range" min="0" max="30" step="1" value="12"
+               aria-describedby="rent-help">
+      </div>
+    </div>
+
+    <dl class="readout">
+      <div>
+        <dt>Model expects, at that walk</dt>
+        <dd id="expected">$2,099</dd>
+        <div class="sub" id="expected-sub">Typical 2 BR rent this far from an M stop</div>
+        <!-- filled live by render() -->
+      </div>
+      <div>
+        <dt>You, against the model</dt>
+        <dd class="verdict" id="verdict">$1 above</dd>
+        <div class="sub" id="verdict-sub">Within a rounding error of typical</div>
+      </div>
+    </dl>
+
+    <div class="chart-holder">
+      <svg class="chart" id="chart" viewBox="0 0 700 300" role="img"
+           aria-labelledby="chart-title" preserveAspectRatio="xMidYMid meet">
+        <title id="chart-title">Predicted rent against walk time to the nearest
+          M-only station, zero to thirty minutes</title>
+      </svg>
+    </div>
+
+    <div class="chart-foot">
+      <span id="foot-swing">Across a 30-minute walk: $280</span>
+      <span id="foot-model">2 BR · 221 tracts · t = −4.53</span>
+      <span>ACS 2020–2024</span>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="strip-title">
+    <div class="panel-head">
+      <h2 class="panel-title" id="strip-title">Along the line, west to east</h2>
+      <span class="panel-note">Observed medians</span>
+    </div>
+    <p style="margin:0;font-size:15.5px;color:var(--ink-2)">
+      The premium isn't flat across the cluster. It runs highest at the Bushwick
+      end and falls as the M heads deeper into Queens — a slope the single
+      distance-to-nearest-stop model doesn't capture.
+    </p>
+    <div class="strip" id="strip"></div>
+    <div class="strip-ends">
+      <span>← cheaper</span>
+      <span>pricier →</span>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="caveat-title">
+    <div class="panel-head">
+      <h2 class="panel-title" id="caveat-title">What this can't tell you</h2>
+    </div>
+    <div class="caveats">
+      <p class="caveat"><b>It's a description, not a cause.</b> Being near the M
+        doesn't make rent go up. Station locations and neighborhood change are
+        tangled together, and one snapshot can't pull them apart.</p>
+      <p class="caveat"><b>"Near the M" and "in Ridgewood" are hard to separate.</b>
+        Every M-only station sits in one corner of the map, so the gradient may be
+        picking up the neighborhood's own trajectory as much as the train.</p>
+      <p class="caveat"><b>Redrawing the sample around the M weakens it.</b> Built
+        on a tighter band, the effect points the same way but isn't statistically
+        significant — the wide sample's power comes from including tracts far from
+        any M stop.</p>
+      <p class="caveat"><b>These are tract medians, not listings.</b> Census
+        five-year figures include rent-stabilized units, so what a mover faces
+        today is probably steeper than what's drawn here.</p>
+    </div>
+  </section>
+
+  <footer>
+    <b>Method.</b> ln(rent) regressed on network walk minutes to the nearest
+    M-only station, holding distance to other nearby stations, building age,
+    median rooms, renter share and unit mix fixed. HC1 robust standard errors.<br>
+    <b>Walk No. 08</b> meets Sat Sep 26 at the Seneca Av (M) entrance.
+  </footer>
+
+</div>
+
+<script>
+const MODEL = {
+  combined: { b1: -0.00492, p0: 2200, n: 227, t: -5.28, label: "Any size" },
+  "1br":    { b1: -0.00616, p0: 2179, n: 182, t: -4.88, label: "1 BR" },
+  "2br":    { b1: -0.00451, p0: 2215, n: 221, t: -4.53, label: "2 BR" },
+  "3br":    { b1: -0.00433, p0: 2570, n: 188, t: -3.86, label: "3 BR" }
+};
+
+// Observed median rent for tracts within ~0.6 km of each M-only station,
+// in line order west (Bushwick) to east (Queens).
+const STATIONS = [
+  { name: "Central Av",      n: 7, rent: 2396 },
+  { name: "Knickerbocker Av", n: 8, rent: 2017 },
+  { name: "Myrtle–Wyckoff Avs", n: 8, rent: 2132, note: "L+M transfer" },
+  { name: "Seneca Av",       n: 7, rent: 2083, note: "walk starts here" },
+  { name: "Forest Av",       n: 7, rent: 1928 },
+  { name: "Fresh Pond Rd",   n: 6, rent: 1913 },
+  { name: "Middle Village–Metropolitan Av", n: 1, rent: 1980 }
+];
+
+const MAX_WALK = 30;
+const $ = (id) => document.getElementById(id);
+const money = (v) => "$" + Math.round(v).toLocaleString("en-US");
+
+let series = "2br";
+let touched = false;
+
+const predict = (w, s) => MODEL[s].p0 * Math.exp(MODEL[s].b1 * w);
+
+/* ---------------- chart ---------------- */
+
+function drawChart(walk) {
+  const m = MODEL[series];
+  const W = 700, H = 300;
+  const pad = { t: 26, r: 92, b: 44, l: 66 };
+  const iw = W - pad.l - pad.r;
+  const ih = H - pad.t - pad.b;
+
+  const hi = m.p0;
+  const lo = predict(MAX_WALK, series);
+  const span = hi - lo;
+  const yMax = hi + span * 0.45;
+  const yMin = lo - span * 0.45;
+
+  const x = (w) => pad.l + (w / MAX_WALK) * iw;
+  const y = (v) => pad.t + (1 - (v - yMin) / (yMax - yMin)) * ih;
+
+  const pts = [];
+  for (let w = 0; w <= MAX_WALK; w += 0.5) pts.push([x(w), y(predict(w, series))]);
+  const path = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+
+  const ticks = [0, 10, 20, 30];
+  const yTicks = [hi, (hi + lo) / 2, lo];
+
+  const ux = x(walk), uy = y(predict(walk, series));
+
+  const grid = ticks.map((t) =>
+    `<line x1="${x(t).toFixed(1)}" y1="${pad.t}" x2="${x(t).toFixed(1)}" y2="${pad.t + ih}"
+       stroke="var(--line)" stroke-width="1"/>`).join("");
+
+  const yGrid = yTicks.map((v) =>
+    `<line x1="${pad.l}" y1="${y(v).toFixed(1)}" x2="${pad.l + iw}" y2="${y(v).toFixed(1)}"
+       stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+     <text x="${pad.l - 10}" y="${(y(v) + 4).toFixed(1)}" text-anchor="end" fill="var(--ink-3)"
+       font-family="IBM Plex Mono, monospace" font-size="11">${money(v)}</text>`).join("");
+
+  const xLabels = ticks.map((t) =>
+    `<text x="${x(t).toFixed(1)}" y="${pad.t + ih + 20}" text-anchor="middle" fill="var(--ink-3)"
+       font-family="IBM Plex Mono, monospace" font-size="11">${t}</text>`).join("");
+
+  $("chart").innerHTML = `
+    <title id="chart-title">Predicted rent against walk time to the nearest M-only
+      station, zero to thirty minutes. ${money(hi)} at the station door falling to
+      ${money(lo)} at thirty minutes.</title>
+    ${grid}${yGrid}${xLabels}
+    <path d="${path}" fill="none" stroke="var(--m)" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round"/>
+
+    <circle cx="${x(0)}" cy="${y(hi).toFixed(1)}" r="3.5" fill="var(--m)"/>
+    <text x="${x(0) + 8}" y="${(y(hi) - 9).toFixed(1)}" fill="var(--ink-2)"
+      font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500">
+      ${money(hi)} at the door</text>
+
+    <circle cx="${x(MAX_WALK)}" cy="${y(lo).toFixed(1)}" r="3.5" fill="var(--m)"/>
+    <text x="${x(MAX_WALK) + 8}" y="${(y(lo) + 4).toFixed(1)}" fill="var(--ink-2)"
+      font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500">
+      ${money(lo)}</text>
+
+    <line x1="${ux.toFixed(1)}" y1="${pad.t}" x2="${ux.toFixed(1)}" y2="${pad.t + ih}"
+      stroke="var(--m-grid)" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle cx="${ux.toFixed(1)}" cy="${uy.toFixed(1)}" r="7"
+      fill="var(--m)" stroke="var(--surface)" stroke-width="2.5"/>
+    <text x="${ux.toFixed(1)}" y="${pad.t - 9}" text-anchor="middle" fill="var(--ink)"
+      font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600">
+      ${walk} min</text>
+
+    <text x="${pad.l + iw / 2}" y="${H - 8}" text-anchor="middle" fill="var(--ink-3)"
+      font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="0.08em">
+      MINUTES' WALK TO NEAREST M-ONLY STATION</text>
+  `;
+}
+
+/* ---------------- station strip ---------------- */
+
+function drawStrip() {
+  const vals = STATIONS.map((s) => s.rent);
+  const lo = Math.min(...vals) - 90, hi = Math.max(...vals) + 90;
+  $("strip").innerHTML = STATIONS.map((s, i) => {
+    const pct = ((s.rent - lo) / (hi - lo)) * 100;
+    const lowN = s.n <= 2;
+    return `<div class="strip-row">
+      <span class="strip-seq">${String(i + 1).padStart(2, "0")}</span>
+      <span class="strip-name">${s.name}
+        ${s.note ? `<em>${s.note}</em>` : ""}
+        ${lowN ? `<em>only ${s.n} tract</em>` : ""}</span>
+      <span class="strip-val">${money(s.rent)}</span>
+    </div>
+    <div class="strip-row" style="grid-template-columns:26px 1fr 74px;padding:0 0 9px;border:0">
+      <span></span>
+      <span class="strip-track"><span class="strip-dot${lowN ? " low-n" : ""}"
+        style="left:${pct.toFixed(1)}%"></span></span>
+      <span></span>
+    </div>`;
+  }).join("");
+}
+
+/* ---------------- state ---------------- */
+
+function render() {
+  const m = MODEL[series];
+  const walk = +$("walk").value;
+  const rent = +$("rent").value || 0;
+  const exp = predict(walk, series);
+  const diff = rent - exp;
+  const pct = exp ? (diff / exp) * 100 : 0;
+
+  $("walk-value").textContent = walk + " min";
+  $("expected").textContent = money(exp);
+  $("expected-sub").textContent =
+    `Typical ${m.label} rent this far from an M stop`;
+
+  if (Math.abs(diff) < 25) {
+    $("verdict").textContent = "About typical";
+    $("verdict-sub").textContent = "Within $25 of what the model expects here";
+  } else {
+    $("verdict").textContent = money(Math.abs(diff)) + (diff > 0 ? " above" : " below");
+    $("verdict-sub").textContent =
+      `${Math.abs(pct).toFixed(0)}% ${diff > 0 ? "more" : "less"} than typical for this walk`;
+  }
+
+  const swing = m.p0 - predict(MAX_WALK, series);
+  $("foot-swing").textContent = `Across a 30-minute walk: ${money(swing)}`;
+  $("foot-model").textContent = `${m.label} · ${m.n} tracts · t = ${m.t.toFixed(2)}`;
+
+  drawChart(walk);
+}
+
+function markTouched() {
+  if (touched) return;
+  touched = true;
+  $("preset-note").textContent = "Your numbers";
+}
+
+document.querySelectorAll(".segmented button").forEach((b) => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll(".segmented button")
+      .forEach((o) => o.setAttribute("aria-pressed", String(o === b)));
+    series = b.dataset.series;
+    markTouched();
+    render();
+  });
+});
+
+$("walk").addEventListener("input", () => { markTouched(); render(); });
+$("rent").addEventListener("input", () => { markTouched(); render(); });
+
+drawStrip();
+render();
+</script>
