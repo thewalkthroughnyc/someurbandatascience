@@ -3,15 +3,17 @@
 Run:  python src/02_walk_times.py          (or: make walktimes)
 
 For every band tract: minutes on the walk network from the tract's internal
-point to (a) the nearest L station and (b) the nearest non-L station — the
-key control, because "far from the L" in this geography often means
-"near the J/M/Z".
+point to (a) the nearest M-only station — Ridgewood/Middle Village, the
+subject — and, as controls, (b) the nearest full-service non-L station and
+(c) the nearest L station. Holding the other two fixed is what lets the M
+coefficient mean "near the M-only cluster" rather than "near some train."
 
 Method: snap stations and tract points to graph nodes, then ONE
 multi-source Dijkstra per station set — every tract's distance to its
-nearest L station falls out of a single pass. Network distance, not
-straight-line: the Bushwick grid and the Cemetery of the Evergreens make
-the two diverge sharply, and that divergence is the contribution.
+nearest station in that set falls out of a single pass. Network distance,
+not straight-line: the Bushwick/Ridgewood grid and the Cemetery of the
+Evergreens make the two diverge sharply, and that divergence is the
+contribution.
 
 Heads-up: the Overpass download + graph build for ~60 km^2 of dense
 Brooklyn/Queens is the slow step — expect 10-30 min the first time.
@@ -74,17 +76,17 @@ def main() -> None:
     st_nodes, _ = snap(Gp, st_proj)          # station snap error ~10-50 m; ignored
     tr_nodes, tr_snap_m = snap(Gp, tr_pts)
 
+    src_M = set(st_nodes[st_proj.is_M_only.values])
     src_L = set(st_nodes[st_proj.is_L.values])
-    src_limited = set(st_nodes[st_proj.is_limited.values])
-    src_full_nonL = set(st_nodes[(~st_proj.is_L.values) & (~st_proj.is_limited.values)])
-    print(f"      sources: {len(src_L)} L nodes, {len(src_full_nonL)} full-service "
-          f"non-L nodes, {len(src_limited)} limited-service (M-only) nodes")
+    src_full_nonL = set(st_nodes[(~st_proj.is_L.values) & (~st_proj.is_M_only.values)])
+    print(f"      sources: {len(src_M)} M-only nodes (the subject); "
+          f"{len(src_full_nonL)} full-service non-L and {len(src_L)} L nodes as controls")
 
     # --- one Dijkstra per station set ------------------------------------
     print("[3/3] Multi-source Dijkstra x3 (edge lengths are meters)")
+    dist_M = nx.multi_source_dijkstra_path_length(Gp, src_M, weight="length")
     dist_L = nx.multi_source_dijkstra_path_length(Gp, src_L, weight="length")
     dist_nonL = nx.multi_source_dijkstra_path_length(Gp, src_full_nonL, weight="length")
-    dist_limited = nx.multi_source_dijkstra_path_length(Gp, src_limited, weight="length")
 
     def minutes(dist_map, node, snap_m):
         d = dist_map.get(node)
@@ -94,29 +96,29 @@ def main() -> None:
 
     out = pd.DataFrame({
         "GEOID": tracts["GEOID"].values,
+        "walk_M_min": [minutes(dist_M, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
         "walk_L_min": [minutes(dist_L, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
         "walk_nonL_min": [minutes(dist_nonL, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
-        "walk_limited_min": [minutes(dist_limited, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
         "snap_m": tr_snap_m.round(1),
     })
 
-    # label the (approx) nearest L station for the walk packet later —
+    # label the (approx) nearest M-only station for the walk packet —
     # euclidean argmin, fine for a label, not used in the model
-    l_st = st_proj[st_proj.is_L].reset_index(drop=True)
-    lx, ly = l_st.geometry.x.values, l_st.geometry.y.values
+    m_st = st_proj[st_proj.is_M_only].reset_index(drop=True)
+    mx, my = m_st.geometry.x.values, m_st.geometry.y.values
     tx, ty = tr_pts.geometry.x.values, tr_pts.geometry.y.values
     nearest_idx = np.argmin(
-        (tx[:, None] - lx[None, :]) ** 2 + (ty[:, None] - ly[None, :]) ** 2, axis=1
+        (tx[:, None] - mx[None, :]) ** 2 + (ty[:, None] - my[None, :]) ** 2, axis=1
     )
-    out["nearest_L_station"] = l_st["name"].values[nearest_idx]
+    out["nearest_M_station"] = m_st["name"].values[nearest_idx]
 
     out.to_csv(C.PROCESSED / "walk_times.csv", index=False)
 
-    n_unreach = int(out["walk_L_min"].isna().sum())
+    n_unreach = int(out["walk_M_min"].isna().sum())
     print("\nSaved data/processed/walk_times.csv")
-    print(f"  median walk to L:              {out.walk_L_min.median():5.1f} min")
-    print(f"  median walk to full non-L:     {out.walk_nonL_min.median():5.1f} min")
-    print(f"  median walk to limited (M-only): {out.walk_limited_min.median():5.1f} min")
+    print(f"  median walk to nearest M-only station: {out.walk_M_min.median():5.1f} min")
+    print(f"  (controls) median walk to full non-L:  {out.walk_nonL_min.median():5.1f} min")
+    print(f"  (controls) median walk to L:           {out.walk_L_min.median():5.1f} min")
     print(f"  unreachable tracts:    {n_unreach}   "
           f"(become NaN; dropped + logged in 03)")
     print(f"  total: {time.time() - t0:,.0f}s")

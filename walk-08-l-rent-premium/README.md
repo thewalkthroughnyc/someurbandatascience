@@ -81,13 +81,14 @@ walk/          route.md · packet.md · script.md — the sidewalk layer, starts
 - The combined series blends every bedroom count into one tract-level median; the 1BR/2BR/3BR cuts address that directly, but each has a thinner, noisier sample than the combined series (a subgroup within a tract has fewer surveyed households, so more tracts get dropped or flagged low-reliability).
 - The Ridgewood gradient is the strongest signal in the model, but the M-only stations are geographically clustered in one corner of the sample. That makes it hard to separate "closer to a weaker-service line" from "closer to Ridgewood specifically" — the gradient may reflect the neighborhood's own price dynamics as much as anything about that particular train. The walk's east/west bearings are designed to probe exactly this, live.
 - Restricting to tracts within a realistic 30-minute walk of an M-only station makes the raw correlation look *stronger*, but the full controlled model loses statistical power there — three of the four bedroom sizes stop being significant once the sample shrinks that much. The full sample's result is the one that's actually reliable and consistent across every series; the realistic-range version is a caveat worth mentioning, not a replacement number.
+- Within the cluster, rent isn't uniform — it runs highest at the Bushwick/Ridgewood end (around Central Av, ~$2,400 median) and falls going deeper into Queens (Forest Av, Fresh Pond Rd, ~$1,900). A single "distance to the nearest M-only station" term treats every M-only station alike and doesn't capture that west-to-east slope; the model over-predicts rent at the Queens end by roughly $150–200.
 
 ## The walk
 
 Sat Sep 26, ~90 minutes, starting at the **Seneca Ave (M)** station entrance — the middle of the M-only cluster, where the finding lives. Four teams, four directions:
 
-- **North, toward Middle Village** — stays inside the M-only cluster. Tests whether the premium holds steady or varies within Ridgewood itself.
-- **South, toward Myrtle-Wyckoff Avs** — leaves the M-only cluster for a station with full service. Should show rent falling as the walk leaves Ridgewood's isolation behind.
-- **East and west, perpendicular to the M line** — tests whether this is really about that specific train, or just about being in Ridgewood generally.
+- **North, toward Middle Village** (Forest Av, Fresh Pond Rd) — the deeper-into-Queens end of the cluster. The data says rent falls this way, from roughly $2,080 around Seneca to $1,910 around Fresh Pond Rd.
+- **South, toward Myrtle-Wyckoff Avs** — the Bushwick/Ridgewood end of the cluster. The data says rent rises this way, slightly — roughly $2,080 to $2,130 — and keeps rising past Myrtle-Wyckoff toward Central Av (~$2,400), the most expensive stretch of the line.
+- **East and west, perpendicular to the M line** — tests whether this is really about that specific train, or just about being in Ridgewood generally. No prediction from the data; this is the live experiment.
 
 Each team predicts a rent *before* looking anything up — anchored on their own housing (their own bedroom count, their own rent, their own walk to a subway), not a hypothetical bedroom size, since the finding holds the same way regardless of unit size. We regroup to plot everyone's guesses against the model on one chart, live. <!-- Jordan: RSVP link, and the closing question — your call, substack_post.md has a couple of draft directions. -->

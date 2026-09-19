@@ -70,10 +70,11 @@ FT_PER_MILE = 5280.0
 M_PER_FT = 0.3048
 
 # ---------------------------------------------------------------- the band
-BAND_RADIUS_MILES = 1.25   # buffer around the L corridor line, both sides.
-                           # ~1.25 mi ≈ a 25-30 min network walk: enough tail
-                           # past the premium's plausible reach to pin down
-                           # the far-from-station baseline.
+BAND_RADIUS_MILES = 1.25   # buffer around the corridor line, both sides. The
+                           # line is drawn along the long east-west spine 01
+                           # builds from station points; 1.25 mi is wide enough
+                           # to reach north into Ridgewood/Middle Village, where
+                           # the M-only cluster — the subject — sits.
                            # GATE 1 LEVER: if the tract count is thin, raise
                            # this (1.5) and rerun 01. Nothing else changes.
 NONL_STATION_MARGIN_MILES = 0.5   # non-L stations just outside the band still

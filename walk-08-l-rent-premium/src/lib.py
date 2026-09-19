@@ -130,9 +130,9 @@ def clean_tracts(
     df = df[df["renter_hh"].fillna(0) >= C.MIN_RENTER_HH]
     log.append((f"Dropped tracts with < {C.MIN_RENTER_HH} renter households (cemeteries, industrial)", n1 - len(df)))
 
-    if "walk_L_min" in df.columns:
+    if "walk_M_min" in df.columns:
         n2 = len(df)
-        df = df[df["walk_L_min"].notna()]
+        df = df[df["walk_M_min"].notna()]
         log.append(("Dropped tracts unreachable on the walk network", n2 - len(df)))
 
         if "snap_m" in df.columns:
@@ -156,10 +156,9 @@ def half_life(beta1: float) -> float:
 
 
 MODEL_CONTROLS = [
-    "walk_nonL_min",     # full-service non-L: 'far from the L' often means 'near the J'
-    "walk_limited_min",  # M-only stations (Ridgewood/Middle Village): the strongest
-                         # signal in the model, likely a neighborhood-identity
-                         # gradient more than a transit-quality one — see writeup
+    "walk_L_min",        # other nearby-station distances, held fixed so the M
+    "walk_nonL_min",     # coefficient isn't just "near some train". Neither
+                         # carries a reliable signal of its own.
     "med_year_built",
     "med_rooms",
     "renter_share",
@@ -169,30 +168,33 @@ MODEL_CONTROLS = [
 
 
 def fit_model(df: pd.DataFrame, rent_col: str = "med_rent"):
-    """ln(rent) on walk time to the L, with whatever controls are present.
+    """ln(rent) on walk time to the nearest M-only (Ridgewood) station, with
+    whatever controls are present.
 
     rent_col picks which rent series to fit — the blended med_rent by
     default, or one of the bedroom-specific columns (med_rent_1br, etc.).
 
-    Returns (results, info dict). HC1 robust SEs. Spatial autocorrelation
-    across neighboring tracts is a real caveat — note it in the writeup;
-    Conley/cluster SEs are a week-3 robustness item, not a blocker.
+    Returns (results, info dict); beta1 is the M coefficient. HC1 robust
+    SEs. Spatial autocorrelation across neighboring tracts is a real caveat
+    — note it in the writeup; Conley/cluster SEs are a robustness item.
     """
     import statsmodels.formula.api as smf
 
     d = df.copy()
     d["log_rent"] = np.log(d[rent_col])
     controls = [c for c in MODEL_CONTROLS if c in d.columns and d[c].notna().any()]
-    formula = "log_rent ~ walk_L_min" + "".join(f" + {c}" for c in controls)
-    d = d.dropna(subset=["log_rent", "walk_L_min"] + controls)
+    formula = "log_rent ~ walk_M_min" + "".join(f" + {c}" for c in controls)
+    d = d.dropna(subset=["log_rent", "walk_M_min"] + controls)
 
     res = smf.ols(formula, data=d).fit(cov_type="HC1")
-    b1 = float(res.params["walk_L_min"])
+    b1 = float(res.params["walk_M_min"])
+    se1 = float(res.bse["walk_M_min"])
     info = {
         "formula": formula,
         "n": int(res.nobs),
         "beta1_per_min": b1,
-        "beta1_se": float(res.bse["walk_L_min"]),
+        "beta1_se": se1,
+        "beta1_t": b1 / se1,
         "pct_per_min": (np.exp(b1) - 1) * 100,
         "half_life_min": half_life(b1),
         "r2": float(res.rsquared),
@@ -201,14 +203,14 @@ def fit_model(df: pd.DataFrame, rent_col: str = "med_rent"):
 
 
 def predicted_p0(res, df: pd.DataFrame) -> float:
-    """Model-implied rent at the station door (walk_L = 0), controls at
-    sample means. Feeds the p5 tool's P(w) = P0 * exp(beta1 * w).
+    """Model-implied rent at the M-only station door (walk_M = 0), controls
+    at sample means. Feeds the p5 tool's P(w) = P0 * exp(beta1 * w).
 
     Note: plain exp() of the log-scale prediction, no smearing correction —
     fine for a visualization anchor, say so if anyone asks.
     """
     row = {c: [df[c].mean()] for c in MODEL_CONTROLS if c in df.columns}
-    row["walk_L_min"] = [0.0]
+    row["walk_M_min"] = [0.0]
     return float(np.exp(res.predict(pd.DataFrame(row))[0]))
 
 

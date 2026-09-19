@@ -7,23 +7,23 @@ Dep. Variable:               log_rent   R-squared:                       0.427
 Model:                            OLS   Adj. R-squared:                  0.406
 Method:                 Least Squares   F-statistic:                     20.50
 Date:                Sat, 19 Sep 2026   Prob (F-statistic):           5.27e-23
-Time:                        12:37:17   Log-Likelihood:                -57.911
+Time:                        13:08:46   Log-Likelihood:                -57.911
 No. Observations:                 227   AIC:                             133.8
 Df Residuals:                     218   BIC:                             164.6
 Df Model:                           8                                         
 Covariance Type:                  HC1                                         
-====================================================================================
-                       coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------------
-Intercept            2.3180      2.359      0.983      0.326      -2.305       6.941
-walk_L_min          -0.0023      0.003     -0.857      0.391      -0.008       0.003
-walk_nonL_min        0.0012      0.002      0.536      0.592      -0.003       0.005
-walk_limited_min    -0.0049      0.001     -5.280      0.000      -0.007      -0.003
-med_year_built       0.0039      0.001      3.302      0.001       0.002       0.006
-med_rooms           -0.2796      0.060     -4.667      0.000      -0.397      -0.162
-renter_share        -1.1189      0.248     -4.506      0.000      -1.605      -0.632
-share_1unit         -0.9093      0.314     -2.897      0.004      -1.525      -0.294
-share_20plus        -0.8107      0.152     -5.339      0.000      -1.108      -0.513
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          2.3180      2.359      0.983      0.326      -2.305       6.941
+walk_M_min        -0.0049      0.001     -5.280      0.000      -0.007      -0.003
+walk_L_min        -0.0023      0.003     -0.857      0.391      -0.008       0.003
+walk_nonL_min      0.0012      0.002      0.536      0.592      -0.003       0.005
+med_year_built     0.0039      0.001      3.302      0.001       0.002       0.006
+med_rooms         -0.2796      0.060     -4.667      0.000      -0.397      -0.162
+renter_share      -1.1189      0.248     -4.506      0.000      -1.605      -0.632
+share_1unit       -0.9093      0.314     -2.897      0.004      -1.525      -0.294
+share_20plus      -0.8107      0.152     -5.339      0.000      -1.108      -0.513
 ==============================================================================
 Omnibus:                       21.127   Durbin-Watson:                   1.595
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):               35.986
@@ -36,8 +36,7 @@ Notes:
 [2] The condition number is large, 2.09e+05. This might indicate that there are
 strong multicollinearity or other numerical problems.
 
-walk_limited_min (Ridgewood/M-only gradient): -0.0049 (se 0.0009, t=-5.28)
-Restricted to walk_limited_min <= 30 min (N=84): -0.0107 (se 0.0074, t=-1.44)
+Restricted to walk_M_min <= 30 min (N=84): b1 = -0.0107 (se 0.0074, t=-1.44)
 
 
 ==============================================================
@@ -49,23 +48,23 @@ Dep. Variable:               log_rent   R-squared:                       0.387
 Model:                            OLS   Adj. R-squared:                  0.359
 Method:                 Least Squares   F-statistic:                     11.28
 Date:                Sat, 19 Sep 2026   Prob (F-statistic):           8.46e-13
-Time:                        12:37:17   Log-Likelihood:                -73.499
+Time:                        13:08:46   Log-Likelihood:                -73.499
 No. Observations:                 182   AIC:                             165.0
 Df Residuals:                     173   BIC:                             193.8
 Df Model:                           8                                         
 Covariance Type:                  HC1                                         
-====================================================================================
-                       coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------------
-Intercept           -1.0217      2.739     -0.373      0.709      -6.391       4.347
-walk_L_min          -0.0010      0.004     -0.273      0.785      -0.008       0.006
-walk_nonL_min        0.0047      0.003      1.522      0.128      -0.001       0.011
-walk_limited_min    -0.0062      0.001     -4.876      0.000      -0.009      -0.004
-med_year_built       0.0056      0.001      4.022      0.000       0.003       0.008
-med_rooms           -0.3344      0.071     -4.682      0.000      -0.474      -0.194
-renter_share        -0.8278      0.311     -2.661      0.008      -1.437      -0.218
-share_1unit         -0.7969      0.402     -1.984      0.047      -1.584      -0.010
-share_20plus        -0.9329      0.202     -4.628      0.000      -1.328      -0.538
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept         -1.0217      2.739     -0.373      0.709      -6.391       4.347
+walk_M_min        -0.0062      0.001     -4.876      0.000      -0.009      -0.004
+walk_L_min        -0.0010      0.004     -0.273      0.785      -0.008       0.006
+walk_nonL_min      0.0047      0.003      1.522      0.128      -0.001       0.011
+med_year_built     0.0056      0.001      4.022      0.000       0.003       0.008
+med_rooms         -0.3344      0.071     -4.682      0.000      -0.474      -0.194
+renter_share      -0.8278      0.311     -2.661      0.008      -1.437      -0.218
+share_1unit       -0.7969      0.402     -1.984      0.047      -1.584      -0.010
+share_20plus      -0.9329      0.202     -4.628      0.000      -1.328      -0.538
 ==============================================================================
 Omnibus:                       18.857   Durbin-Watson:                   1.858
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):               25.477
@@ -78,8 +77,7 @@ Notes:
 [2] The condition number is large, 2.1e+05. This might indicate that there are
 strong multicollinearity or other numerical problems.
 
-walk_limited_min (Ridgewood/M-only gradient): -0.0062 (se 0.0013, t=-4.88)
-Restricted to walk_limited_min <= 30 min (N=73): -0.0178 (se 0.0080, t=-2.22)
+Restricted to walk_M_min <= 30 min (N=73): b1 = -0.0178 (se 0.0080, t=-2.22)
 
 
 ==============================================================
@@ -91,23 +89,23 @@ Dep. Variable:               log_rent   R-squared:                       0.381
 Model:                            OLS   Adj. R-squared:                  0.358
 Method:                 Least Squares   F-statistic:                     13.30
 Date:                Sat, 19 Sep 2026   Prob (F-statistic):           1.55e-15
-Time:                        12:37:18   Log-Likelihood:                -63.814
+Time:                        13:08:46   Log-Likelihood:                -63.814
 No. Observations:                 221   AIC:                             145.6
 Df Residuals:                     212   BIC:                             176.2
 Df Model:                           8                                         
 Covariance Type:                  HC1                                         
-====================================================================================
-                       coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------------
-Intercept            2.7931      2.482      1.125      0.260      -2.071       7.658
-walk_L_min          -0.0016      0.003     -0.584      0.559      -0.007       0.004
-walk_nonL_min       -0.0002      0.002     -0.083      0.934      -0.005       0.005
-walk_limited_min    -0.0045      0.001     -4.525      0.000      -0.006      -0.003
-med_year_built       0.0038      0.001      3.087      0.002       0.001       0.006
-med_rooms           -0.3322      0.064     -5.223      0.000      -0.457      -0.208
-renter_share        -1.2315      0.268     -4.588      0.000      -1.758      -0.705
-share_1unit         -0.8336      0.334     -2.494      0.013      -1.489      -0.179
-share_20plus        -0.6708      0.165     -4.069      0.000      -0.994      -0.348
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          2.7931      2.482      1.125      0.260      -2.071       7.658
+walk_M_min        -0.0045      0.001     -4.525      0.000      -0.006      -0.003
+walk_L_min        -0.0016      0.003     -0.584      0.559      -0.007       0.004
+walk_nonL_min     -0.0002      0.002     -0.083      0.934      -0.005       0.005
+med_year_built     0.0038      0.001      3.087      0.002       0.001       0.006
+med_rooms         -0.3322      0.064     -5.223      0.000      -0.457      -0.208
+renter_share      -1.2315      0.268     -4.588      0.000      -1.758      -0.705
+share_1unit       -0.8336      0.334     -2.494      0.013      -1.489      -0.179
+share_20plus      -0.6708      0.165     -4.069      0.000      -0.994      -0.348
 ==============================================================================
 Omnibus:                       39.705   Durbin-Watson:                   1.405
 Prob(Omnibus):                  0.000   Jarque-Bera (JB):               93.906
@@ -120,8 +118,7 @@ Notes:
 [2] The condition number is large, 2.09e+05. This might indicate that there are
 strong multicollinearity or other numerical problems.
 
-walk_limited_min (Ridgewood/M-only gradient): -0.0045 (se 0.0010, t=-4.53)
-Restricted to walk_limited_min <= 30 min (N=81): -0.0128 (se 0.0092, t=-1.39)
+Restricted to walk_M_min <= 30 min (N=81): b1 = -0.0128 (se 0.0092, t=-1.39)
 
 
 ==============================================================
@@ -133,23 +130,23 @@ Dep. Variable:               log_rent   R-squared:                       0.364
 Model:                            OLS   Adj. R-squared:                  0.336
 Method:                 Least Squares   F-statistic:                     7.533
 Date:                Sat, 19 Sep 2026   Prob (F-statistic):           1.18e-08
-Time:                        12:37:18   Log-Likelihood:                -62.468
+Time:                        13:08:46   Log-Likelihood:                -62.468
 No. Observations:                 188   AIC:                             142.9
 Df Residuals:                     179   BIC:                             172.1
 Df Model:                           8                                         
 Covariance Type:                  HC1                                         
-====================================================================================
-                       coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------------
-Intercept            4.8903      2.812      1.739      0.082      -0.621      10.402
-walk_L_min          -0.0003      0.004     -0.087      0.930      -0.007       0.007
-walk_nonL_min        0.0006      0.003      0.214      0.831      -0.005       0.006
-walk_limited_min    -0.0043      0.001     -3.859      0.000      -0.007      -0.002
-med_year_built       0.0025      0.001      1.785      0.074      -0.000       0.005
-med_rooms           -0.2731      0.070     -3.888      0.000      -0.411      -0.135
-renter_share        -0.8200      0.299     -2.739      0.006      -1.407      -0.233
-share_1unit         -0.7177      0.442     -1.622      0.105      -1.585       0.149
-share_20plus        -0.9198      0.194     -4.746      0.000      -1.300      -0.540
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          4.8903      2.812      1.739      0.082      -0.621      10.402
+walk_M_min        -0.0043      0.001     -3.859      0.000      -0.007      -0.002
+walk_L_min        -0.0003      0.004     -0.087      0.930      -0.007       0.007
+walk_nonL_min      0.0006      0.003      0.214      0.831      -0.005       0.006
+med_year_built     0.0025      0.001      1.785      0.074      -0.000       0.005
+med_rooms         -0.2731      0.070     -3.888      0.000      -0.411      -0.135
+renter_share      -0.8200      0.299     -2.739      0.006      -1.407      -0.233
+share_1unit       -0.7177      0.442     -1.622      0.105      -1.585       0.149
+share_20plus      -0.9198      0.194     -4.746      0.000      -1.300      -0.540
 ==============================================================================
 Omnibus:                        4.818   Durbin-Watson:                   1.608
 Prob(Omnibus):                  0.090   Jarque-Bera (JB):                4.860
@@ -162,5 +159,4 @@ Notes:
 [2] The condition number is large, 2.04e+05. This might indicate that there are
 strong multicollinearity or other numerical problems.
 
-walk_limited_min (Ridgewood/M-only gradient): -0.0043 (se 0.0011, t=-3.86)
-Restricted to walk_limited_min <= 30 min (N=79): +0.0047 (se 0.0058, t=+0.82)
+Restricted to walk_M_min <= 30 min (N=79): b1 = +0.0047 (se 0.0058, t=+0.82)

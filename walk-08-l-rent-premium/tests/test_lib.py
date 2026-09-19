@@ -57,16 +57,18 @@ def test_cleaning():
 def test_model_recovery():
     rng = np.random.default_rng(8)           # walk 08, of course
     n = 300
-    beta1_true = -0.03
-    walk = rng.uniform(1, 35, n)
+    beta1_true = -0.03                       # planted on the M distance
+    walk_M = rng.uniform(1, 35, n)
+    walk_L = rng.uniform(1, 35, n)
     walk_nonL = rng.uniform(2, 30, n)
     yr = rng.integers(1900, 2015, n).astype(float)
     rooms = rng.uniform(2.5, 5.5, n)
-    log_rent = (8.1 + beta1_true * walk + 0.004 * walk_nonL
+    log_rent = (8.1 + beta1_true * walk_M + 0.001 * walk_L + 0.004 * walk_nonL
                 + 0.0002 * yr + 0.02 * rooms + rng.normal(0, 0.10, n))
     df = pd.DataFrame({
         "med_rent": np.exp(log_rent),
-        "walk_L_min": walk,
+        "walk_M_min": walk_M,
+        "walk_L_min": walk_L,
         "walk_nonL_min": walk_nonL,
         "med_year_built": yr,
         "med_rooms": rooms,

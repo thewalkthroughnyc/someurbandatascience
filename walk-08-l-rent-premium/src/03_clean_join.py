@@ -6,10 +6,9 @@ Runs the same clean + scatter step once per rent series: the combined
 blended median and the three bedroom-specific cuts. Produces, per series:
   - data/processed/analysis_table[_Nbr].csv   one row per tract, model-ready
   - outputs/cleaning_log[_Nbr].md             every decision and the rows it cost
-  - outputs/figures/scatter_rent_vs_walk[_Nbr].png       rent vs. walk to the L
-  - outputs/figures/scatter_rent_vs_ridgewood[_Nbr].png  rent vs. walk to the
-    nearest M-only (Ridgewood) station — the real signal. Look at both. The
-    plots are the gate, not the printed slope.
+  - outputs/figures/scatter_rent_vs_ridgewood[_Nbr].png  THE plot — rent vs.
+    walk to the nearest M-only (Ridgewood) station, 0-30 min, with a lowess
+    overlay. Look at it. The plot is the gate, not the printed slope.
 """
 
 from __future__ import annotations
@@ -36,8 +35,7 @@ SERIES = [
 
 # One entry per chart: (x column, x-axis label, output filename stem)
 CHARTS = [
-    ("walk_L_min", "Network walk time to nearest L station (min)", "scatter_rent_vs_walk"),
-    ("walk_limited_min", "Network walk time to nearest M-only (Ridgewood) station (min)",
+    ("walk_M_min", "Network walk time to nearest M-only (Ridgewood) station (min)",
      "scatter_rent_vs_ridgewood"),
 ]
 

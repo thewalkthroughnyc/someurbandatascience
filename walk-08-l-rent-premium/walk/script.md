@@ -1,12 +1,13 @@
-# Script (two–three sentences per stop; week-3 work)
+# Script (two–three sentences per stop)
 
-- Identical prediction prompt at every building — same wording, every time
-- Starting point is Seneca Ave (M), inside the Ridgewood M-only cluster, not
-  DeKalb Av (L) — the walk starts where the real signal is.
-- The reveal at regroup: everyone's guesses on one chart against the curve.
-  North (A, staying in the cluster) should read flat-to-rising. South (B,
-  toward Myrtle-Wyckoff) should read falling — leaving the M-only zone for a
-  full L+M station. East/West (C/D) are the genuinely open question — the
-  live result there is real data, not a known answer, since it's testing
-  whether this is about the train or about Ridgewood itself.
+- Starting point is Seneca Ave (M), the middle of the Ridgewood M-only
+  cluster — the walk starts where the finding lives.
+- Identical prediction prompt at every building — same wording, every time;
+  anchored on each person's own home, not a hypothetical bedroom size.
+- The reveal at regroup: everyone's guesses on one chart against the model.
+  Bearing A (toward Middle Village) should read falling — the Queens end of
+  the cluster is the cheaper end. Bearing B (toward Myrtle-Wyckoff) should
+  read rising, slightly — the Bushwick/Ridgewood end is the expensive end.
+  Bearings C/D (perpendicular) are the genuinely open question — live data,
+  not a known answer.
 - Close on the value-capture question <!-- Jordan: which one — see packet.md, still undecided -->

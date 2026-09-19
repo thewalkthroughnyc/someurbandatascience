@@ -3,7 +3,8 @@
 Run:  python src/01_pull_acs.py            (or: make pull)
 
 Does four things and prints Gate 1 at the end:
-  1. MTA stations  -> L corridor line (Bedford Av .. Canarsie) -> band polygon
+  1. MTA stations -> tag the M-only tier (Ridgewood/Middle Village, the
+     subject) -> corridor spine -> band polygon wide enough to reach it
   2. TIGER tracts for Kings + Queens -> keep those whose internal point
      falls inside the band
   3. ACS 2020-2024 5-year pull (median gross rent + controls) for both counties
@@ -57,12 +58,12 @@ def fetch_stations() -> pd.DataFrame:
     out = df[[cols[k] for k in cols]].copy()
     out.columns = list(cols)
     out["is_L"] = out["routes"].apply(lambda r: lib.has_route(r, "L"))
-    out["is_limited"] = out["routes"].apply(lambda r: lib.is_limited_only(r, C.LIMITED_SERVICE_ROUTES))
+    out["is_M_only"] = out["routes"].apply(lambda r: lib.is_limited_only(r, C.LIMITED_SERVICE_ROUTES))
     # Some stations (Myrtle-Wyckoff Avs) split one physical transfer complex across
-    # multiple rows, one per line — a lone M-only row can hide a full-service L
+    # multiple rows, one per line — a lone M-only row can hide a full-service
     # platform a few dozen meters away at the same complex. A row only counts as
-    # truly limited if every row sharing its Complex ID is limited too.
-    out["is_limited"] = out.groupby("complex_id")["is_limited"].transform("all")
+    # truly M-only if every row sharing its Complex ID is M-only too.
+    out["is_M_only"] = out.groupby("complex_id")["is_M_only"].transform("all")
     return out
 
 
@@ -106,27 +107,32 @@ def main() -> None:
     C.RAW.mkdir(parents=True, exist_ok=True)
     C.PROCESSED.mkdir(parents=True, exist_ok=True)
 
-    # --- 1. stations -> corridor -> band -------------------------------
+    # --- 1. stations -> corridor spine -> band --------------------------
     print("\n[1/4] Stations and the band")
     st = fetch_stations()
     st_gdf = gpd.GeoDataFrame(
         st, geometry=[Point(xy) for xy in zip(st.lon, st.lat)], crs=4326
     ).to_crs(C.EPSG_LOCAL)
 
-    l_bk = st_gdf[st_gdf.is_L & (st_gdf.borough == "Bk")].sort_values("gtfs_id")
-    if len(l_bk) < 10:
-        sys.exit(f"Expected ~19 Brooklyn L stations, found {len(l_bk)} — "
+    # The band is buffered around a long east-west spine so it has enough
+    # perpendicular reach; the Brooklyn L run is that spine. The band's reach
+    # north into Queens is what captures the M-only cluster — the subject.
+    spine = st_gdf[st_gdf.is_L & (st_gdf.borough == "Bk")].sort_values("gtfs_id")
+    if len(spine) < 10:
+        sys.exit(f"Expected ~19 corridor-spine stations, found {len(spine)} — "
                  "check the Borough / Daytime Routes columns in data/raw/mta_stations.csv")
-    print(f"  Brooklyn L stations found: {len(l_bk)} "
-          f"({l_bk.iloc[0]['name']} .. {l_bk.iloc[-1]['name']})")
+    print(f"  Corridor spine: {len(spine)} stations "
+          f"({spine.iloc[0]['name']} .. {spine.iloc[-1]['name']})")
 
-    corridor = lib.corridor_line(list(zip(l_bk.geometry.x, l_bk.geometry.y)))
+    corridor = lib.corridor_line(list(zip(spine.geometry.x, spine.geometry.y)))
     band = lib.band_polygon(corridor, C.BAND_RADIUS_MILES * C.FT_PER_MILE)
 
     # Stations relevant to the analysis: everything in/near the band.
     near = st_gdf[st_gdf.geometry.distance(band) <= C.NONL_STATION_MARGIN_MILES * C.FT_PER_MILE].copy()
+    n_m = int(near.is_M_only.sum())
     print(f"  Stations in/near band: {len(near)} "
-          f"({int(near.is_L.sum())} L, {int((~near.is_L).sum())} non-L for the control)")
+          f"({n_m} M-only — the subject; {len(near) - n_m} others, held as controls)")
+    print("  M-only: " + ", ".join(sorted(near[near.is_M_only]["name"].unique())))
 
     # --- 2. tracts ------------------------------------------------------
     print("\n[2/4] TIGER tracts (NY state file, filtered to Kings + Queens)")
@@ -143,7 +149,7 @@ def main() -> None:
     print(f"  Tracts with internal point inside the {C.BAND_RADIUS_MILES}-mile band: {len(tr)}")
 
     # --- 3. ACS ---------------------------------------------------------
-    print(f"\n[3/4] ACS {C.ACS_YEAR - 4}-{C.ACS_YEAR} 5-year pull (B25064 + controls)")
+    print(f"\n[3/4] ACS {C.ACS_YEAR - 4}-{C.ACS_YEAR} 5-year pull (B25064 + B25031 + controls)")
     try:
         acs = acs_pull(C.ACS_YEAR)
         vintage = C.ACS_YEAR

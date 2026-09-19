@@ -89,4 +89,4 @@ anchored on your own home, your own bedroom count and rent and walk to a
 subway, not a hypothetical. Then we'll put everyone's guesses on one
 chart next to what the data actually says, live, on the sidewalk.
 
-![Rent vs walk time to the L](outputs/figures/scatter_rent_vs_walk.png)
+![Rent vs walk time to the nearest Ridgewood M-only station](outputs/figures/scatter_rent_vs_ridgewood.png)

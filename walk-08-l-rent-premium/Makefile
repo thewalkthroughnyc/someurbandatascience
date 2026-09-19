@@ -9,7 +9,7 @@ walktimes:   ## 02 — OSMnx network walk times (slow first run)
 clean_join:  ## 03 — clean + scatter, Gate 2
 	$(PY) src/03_clean_join.py
 
-model:       ## 04 — fit, half-life, export coefficients.json for the p5 tool
+model:       ## 04 — fit the M model, export coefficients.json for the p5 tool
 	$(PY) src/04_model.py
 
 all: pull walktimes clean_join model
