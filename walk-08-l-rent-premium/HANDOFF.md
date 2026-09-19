@@ -1,5 +1,13 @@
 # HANDOFF — Walk No. 08 (L-train rent premium)
 
+> **SUPERSEDED — 2026-09-19.** This describes the original scaffold-building
+> plan from Sep 7, centered on the L corridor. The actual finding turned out
+> to be about Ridgewood/M-only stations, not the L — the model, the walk
+> route, and the writeup have all moved. See `CLAUDE.md` for the current,
+> accurate picture (question, method, pipeline, status, deadlines) and
+> `README.md` for the public writeup. Everything below is kept for history
+> only — don't treat it as current.
+
 Context for a fresh session. Written 2026-09-07, end of the scaffold build.
 Read this first, then `README.md`, then `src/config.py`.
 

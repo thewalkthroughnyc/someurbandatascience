@@ -79,6 +79,19 @@ BAND_RADIUS_MILES = 1.25   # buffer around the L corridor line, both sides.
 NONL_STATION_MARGIN_MILES = 0.5   # non-L stations just outside the band still
                                   # matter for the control; include them.
 
+LIMITED_SERVICE_ROUTES = ["M"]    # stations where this is the ONLY route get
+                                  # split into a separate, weaker tier: the M
+                                  # runs solo (no other line) on much of its
+                                  # Ridgewood/Middle Village stretch, and
+                                  # late nights (~10-11pm to 5am) it doesn't
+                                  # run into Manhattan at all — it's cut back
+                                  # to a shuttle between Middle Village-
+                                  # Metropolitan Av and Myrtle Av-Broadway.
+                                  # A station pairing M with J/Z (e.g.
+                                  # Myrtle Av) still counts as regular
+                                  # non-L service — a real alternative
+                                  # exists at that stop.
+
 # ---------------------------------------------------------------- walk times
 GRAPH_MARGIN_MILES = 0.35  # build the walk network slightly beyond the band
                            # so border tracts aren't routed on a clipped graph

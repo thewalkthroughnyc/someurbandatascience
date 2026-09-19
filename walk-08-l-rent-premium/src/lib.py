@@ -33,6 +33,21 @@ def pick_col(df: pd.DataFrame, *needles: str) -> str:
     raise KeyError(f"No column matching {needles!r} in {list(df.columns)}")
 
 
+def is_limited_only(routes: str, limited_routes: list[str]) -> bool:
+    """True if every route at this station is in limited_routes.
+
+    Isolates stations where a weaker-service line (e.g. the M, which
+    runs solo with no overnight service on its Ridgewood/Middle Village
+    stretch) is the *only* option, from stations where it's paired with
+    a stronger line (e.g. Myrtle Av's M + J + Z) and so has a real
+    alternative on-site.
+    """
+    if not isinstance(routes, str):
+        return False
+    tokens = routes.split()
+    return bool(tokens) and set(tokens) <= set(limited_routes)
+
+
 def has_route(routes: str, route: str) -> bool:
     """Token-exact match on the space-separated Daytime Routes field.
 
@@ -141,7 +156,10 @@ def half_life(beta1: float) -> float:
 
 
 MODEL_CONTROLS = [
-    "walk_nonL_min",     # the key control: 'far from the L' often means 'near the J'
+    "walk_nonL_min",     # full-service non-L: 'far from the L' often means 'near the J'
+    "walk_limited_min",  # M-only stations (Ridgewood/Middle Village): the strongest
+                         # signal in the model, likely a neighborhood-identity
+                         # gradient more than a transit-quality one — see writeup
     "med_year_built",
     "med_rooms",
     "renter_share",
@@ -150,8 +168,11 @@ MODEL_CONTROLS = [
 ]
 
 
-def fit_model(df: pd.DataFrame):
+def fit_model(df: pd.DataFrame, rent_col: str = "med_rent"):
     """ln(rent) on walk time to the L, with whatever controls are present.
+
+    rent_col picks which rent series to fit — the blended med_rent by
+    default, or one of the bedroom-specific columns (med_rent_1br, etc.).
 
     Returns (results, info dict). HC1 robust SEs. Spatial autocorrelation
     across neighboring tracts is a real caveat — note it in the writeup;
@@ -160,7 +181,7 @@ def fit_model(df: pd.DataFrame):
     import statsmodels.formula.api as smf
 
     d = df.copy()
-    d["log_rent"] = np.log(d["med_rent"])
+    d["log_rent"] = np.log(d[rent_col])
     controls = [c for c in MODEL_CONTROLS if c in d.columns and d[c].notna().any()]
     formula = "log_rent ~ walk_L_min" + "".join(f" + {c}" for c in controls)
     d = d.dropna(subset=["log_rent", "walk_L_min"] + controls)

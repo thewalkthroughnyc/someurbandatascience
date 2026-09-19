@@ -52,10 +52,17 @@ def fetch_stations() -> pd.DataFrame:
         "gtfs_id": lib.pick_col(df, "gtfs", "stop", "id"),
         "lat": lib.pick_col(df, "gtfs", "lat"),
         "lon": lib.pick_col(df, "gtfs", "lon"),
+        "complex_id": lib.pick_col(df, "complex", "id"),
     }
     out = df[[cols[k] for k in cols]].copy()
     out.columns = list(cols)
     out["is_L"] = out["routes"].apply(lambda r: lib.has_route(r, "L"))
+    out["is_limited"] = out["routes"].apply(lambda r: lib.is_limited_only(r, C.LIMITED_SERVICE_ROUTES))
+    # Some stations (Myrtle-Wyckoff Avs) split one physical transfer complex across
+    # multiple rows, one per line — a lone M-only row can hide a full-service L
+    # platform a few dozen meters away at the same complex. A row only counts as
+    # truly limited if every row sharing its Complex ID is limited too.
+    out["is_limited"] = out.groupby("complex_id")["is_limited"].transform("all")
     return out
 
 

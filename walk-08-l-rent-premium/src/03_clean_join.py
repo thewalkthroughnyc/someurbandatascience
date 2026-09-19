@@ -3,12 +3,13 @@
 Run:  python src/03_clean_join.py          (or: make clean_join)
 
 Runs the same clean + scatter step once per rent series: the combined
-blended median (as before) and the three bedroom-specific cuts added for
-the walk. Produces, per series:
+blended median and the three bedroom-specific cuts. Produces, per series:
   - data/processed/analysis_table[_Nbr].csv   one row per tract, model-ready
   - outputs/cleaning_log[_Nbr].md             every decision and the rows it cost
-  - outputs/figures/scatter_rent_vs_walk[_Nbr].png   THE plot — log rent vs
-    walk minutes with a lowess overlay. Look at it. This is the gate.
+  - outputs/figures/scatter_rent_vs_walk[_Nbr].png       rent vs. walk to the L
+  - outputs/figures/scatter_rent_vs_ridgewood[_Nbr].png  rent vs. walk to the
+    nearest M-only (Ridgewood) station — the real signal. Look at both. The
+    plots are the gate, not the printed slope.
 """
 
 from __future__ import annotations
@@ -33,6 +34,46 @@ SERIES = [
     ("3BR", "med_rent_3br", "med_rent_3br_moe", "_3br"),
 ]
 
+# One entry per chart: (x column, x-axis label, output filename stem)
+CHARTS = [
+    ("walk_L_min", "Network walk time to nearest L station (min)", "scatter_rent_vs_walk"),
+    ("walk_limited_min", "Network walk time to nearest M-only (Ridgewood) station (min)",
+     "scatter_rent_vs_ridgewood"),
+]
+
+
+def make_scatter(d: pd.DataFrame, rent_col: str, x_col: str, x_label: str,
+                  label: str, out_png) -> float:
+    """One scatter + lowess + bivariate slope, restricted to the realistic
+    0-30 min walking range — both the fit and the display, not just the
+    display, so far-away tracts don't smooth out the local pattern.
+    Returns the bivariate slope from that restricted range."""
+    full_n = len(d)
+    d = d[d[x_col] <= 30]
+
+    fig, ax = plt.subplots(figsize=(8, 5.5), dpi=150)
+    ax.scatter(d[x_col], d[rent_col], s=22, alpha=0.55, edgecolor="none")
+
+    lo = sm.nonparametric.lowess(np.log(d[rent_col]), d[x_col], frac=0.3)
+    ax.plot(lo[:, 0], np.exp(lo[:, 1]), lw=2.2)
+
+    ax.set_yscale("log")
+    ax.set_xlim(0, 30)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(f"ACS median gross rent, {label} ($/mo, log scale)")
+    vintage = int(d["acs_vintage"].iloc[0]) if "acs_vintage" in d else C.ACS_YEAR
+    ax.set_title(f"Rent vs. {x_label[0].lower()}{x_label[1:]} — {label}, "
+                 f"{len(d)} of {full_n} tracts within 30 min, "
+                 f"ACS {vintage - 4}-{vintage} 5-year")
+    ax.text(0.99, 0.02, "The Walkthrough NYC · Walk No. 08", transform=ax.transAxes,
+            ha="right", va="bottom", fontsize=8, alpha=0.6)
+    fig.tight_layout()
+    fig.savefig(out_png)
+    plt.close(fig)
+
+    biv = sm.OLS(np.log(d[rent_col]), sm.add_constant(d[x_col])).fit()
+    return float(biv.params[x_col])
+
 
 def process_series(df: pd.DataFrame, label: str, rent_col: str, moe_col: str, suffix: str) -> None:
     clean, log = lib.clean_tracts(df, rent_col=rent_col, moe_col=moe_col)
@@ -53,40 +94,20 @@ def process_series(df: pd.DataFrame, label: str, rent_col: str, moe_col: str, su
     ]
     (C.ROOT / "outputs" / f"cleaning_log{suffix}.md").write_text("\n".join(lines))
 
-    # --- the scatter ------------------------------------------------------
-    d = clean.dropna(subset=[rent_col, "walk_L_min"])
-    fig, ax = plt.subplots(figsize=(8, 5.5), dpi=150)
-    ax.scatter(d.walk_L_min, d[rent_col], s=22, alpha=0.55, edgecolor="none")
-
-    lo = sm.nonparametric.lowess(np.log(d[rent_col]), d.walk_L_min, frac=0.5)
-    ax.plot(lo[:, 0], np.exp(lo[:, 1]), lw=2.2)
-
-    ax.set_yscale("log")
-    ax.set_xlabel("Network walk time to nearest L station (min)")
-    ax.set_ylabel(f"ACS median gross rent, {label} ($/mo, log scale)")
-    vintage = int(d["acs_vintage"].iloc[0]) if "acs_vintage" in d else C.ACS_YEAR
-    ax.set_title(f"Rent vs the walk to the L — {label}, {len(d)} tracts, "
-                 f"ACS {vintage - 4}-{vintage} 5-year")
-    ax.text(0.99, 0.02, "The Walkthrough NYC · Walk No. 08", transform=ax.transAxes,
-            ha="right", va="bottom", fontsize=8, alpha=0.6)
-    fig.tight_layout()
-    out_png = C.FIGURES / f"scatter_rent_vs_walk{suffix}.png"
-    fig.savefig(out_png)
-    plt.close(fig)
-
-    # --- Gate 2 aid: the bivariate slope, no controls ---------------------
-    biv = sm.OLS(np.log(d[rent_col]), sm.add_constant(d.walk_L_min)).fit()
-    b = float(biv.params["walk_L_min"])
-
     print(f"\n--- {label} ---")
     print(f"Cleaning log -> outputs/cleaning_log{suffix}.md")
     for desc, n in log:
         print(f"  - {desc}: {n}")
     print(f"Analysis table -> data/processed/analysis_table{suffix}.csv  ({len(clean)} tracts)")
-    print(f"Scatter -> {out_png.relative_to(C.ROOT)}")
-    print(f"Bivariate slope (no controls): {b * 100:+.2f}% per walk minute")
-    if b < 0:
-        print(f"Naive half-life at that slope: {lib.half_life(b):.0f} min")
+
+    for x_col, x_label, stem in CHARTS:
+        d = clean.dropna(subset=[rent_col, x_col])
+        out_png = C.FIGURES / f"{stem}{suffix}.png"
+        b = make_scatter(d, rent_col, x_col, x_label, label, out_png)
+        print(f"Scatter -> {out_png.relative_to(C.ROOT)}")
+        print(f"  Bivariate slope (no controls): {b * 100:+.2f}% per walk minute")
+        if b < 0:
+            print(f"  Naive half-life at that slope: {lib.half_life(b):.0f} min")
 
 
 def main() -> None:
@@ -100,9 +121,9 @@ def main() -> None:
         process_series(df, label, rent_col, moe_col, suffix)
 
     print("\n" + "=" * 62)
-    print(" GATE 2 — SIGNAL (all four series)")
+    print(" GATE 2 — SIGNAL (all four series, both charts)")
     print("=" * 62)
-    print("  Now OPEN EACH SCATTER and look. The plot is the gate, not the")
+    print("  Now OPEN THE SCATTERS and look. The plots are the gate, not the")
     print("  printed slope. No visible slope is still a piece — a better one.")
     print("=" * 62)
 

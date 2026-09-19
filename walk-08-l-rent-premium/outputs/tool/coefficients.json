@@ -1,8 +1,42 @@
 {
-  "beta1_per_min": -0.02,
-  "p0_monthly_rent": 2800,
-  "half_life_min": 34.7,
-  "n_tracts": null,
-  "source": "dummy — scaffold the p5 sketch against these; `make model` overwrites with real values",
-  "generated": "2026-09-07"
+  "combined": {
+    "beta1_per_min": -0.00234,
+    "p0_monthly_rent": 1822.0,
+    "half_life_min": 296.6,
+    "n_tracts": 227,
+    "source": "model",
+    "generated": "2026-09-19 12:37",
+    "walk_limited_beta_per_min": -0.00492,
+    "walk_limited_t": -5.28
+  },
+  "1br": {
+    "beta1_per_min": -0.00097,
+    "p0_monthly_rent": 1703.0,
+    "half_life_min": 712.3,
+    "n_tracts": 182,
+    "source": "model",
+    "generated": "2026-09-19 12:37",
+    "walk_limited_beta_per_min": -0.00616,
+    "walk_limited_t": -4.88
+  },
+  "2br": {
+    "beta1_per_min": -0.00155,
+    "p0_monthly_rent": 1846.0,
+    "half_life_min": 446.4,
+    "n_tracts": 221,
+    "source": "model",
+    "generated": "2026-09-19 12:37",
+    "walk_limited_beta_per_min": -0.00451,
+    "walk_limited_t": -4.53
+  },
+  "3br": {
+    "beta1_per_min": -0.00032,
+    "p0_monthly_rent": 2156.0,
+    "half_life_min": 2172.8,
+    "n_tracts": 188,
+    "source": "model",
+    "generated": "2026-09-19 12:37",
+    "walk_limited_beta_per_min": -0.00433,
+    "walk_limited_t": -3.86
+  }
 }

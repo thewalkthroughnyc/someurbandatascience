@@ -1,86 +1,106 @@
-# Walk No. 08 — L-train rent premium
+# Walk No. 08 — The Ridgewood Rent Premium
 
-Part of *The Walkthrough NYC*. Read `HANDOFF.md` for the full narrative;
-this file is the fast-orientation version for a new session.
+## What this is
+Analysis behind a public math walk, not a portfolio project. The
+Walkthrough NYC, run by Jordan, a 7th-grade math teacher in Bushwick. The
+output is a number people test on a sidewalk.
 
-## The question
+## The published question vs. the actual finding
+Published question (Aug 31): does median gross rent decline with network
+walk time to the nearest L station? **That's not what the data showed.**
 
-**"How much of your rent is the walk to the L?"**
+Once you control for distance to every other nearby train and for basic
+housing differences (building age, unit size, renter share), walking
+distance to the L is **not a reliable predictor of rent** — statistically
+indistinguishable from zero, consistent across the blended market and all
+three bedroom-specific cuts (1BR/2BR/3BR).
 
-Does ACS median gross rent decline with network walk time to the nearest
-Brooklyn L station, across census tracts in a 1.25-mile band north and south
-of the corridor (Bedford Av → Canarsie)? The L runs east–west, so the rent
-variation of interest runs *perpendicular* to the line — hence a band, not a
-line of tracts along the spine.
+The real, robust signal: **distance to the nearest M-only station**, all
+of which sit in one cluster in Ridgewood/Middle Village (Central Av,
+Knickerbocker Av, Forest Av, Fresh Pond Rd, Middle Village-Metropolitan
+Av, Seneca Av). Rent **rises**, not falls, as you approach that cluster —
+strongly significant in every bedroom size (β ≈ −0.43% to −0.62% per walk
+minute, t = −3.9 to −5.3). This is now the headline finding. The walk and
+the Substack post are both being restructured around it, in progress as
+of today (2026-09-19).
 
-Key control: network walk time to the nearest **non-L** station. Without it,
-"far from the L" quietly means "near the J/M/Z," and the coefficient on the L
-is contaminated by proximity to everything else.
+**Important, hard-won correction:** Myrtle-Wyckoff Avs is *not* part of
+the M-only tier, even though it looks M-only in a naive per-row read of
+the MTA stations data. The raw feed splits that station into two rows —
+one for the M, one for the L — because it's a real L+M transfer complex.
+`01_pull_acs.py`'s station tagging groups by `Complex ID` specifically to
+catch this; don't undo that grouping when touching that code.
 
+## Why the walk starts at Seneca Ave, not DeKalb
+Seneca Ave sits roughly in the middle of the M-only cluster. Four teams,
+each testing something specific:
+- **North, toward Middle Village** — stays inside the M-only cluster (Forest
+  Av, Fresh Pond Rd also M-only along the way). Tests variation *within*
+  the cluster.
+- **South, toward Myrtle-Wyckoff Avs** — *leaves* the M-only cluster,
+  approaching a full L+M complex. Should show rent falling as the walk
+  leaves Ridgewood's isolation behind.
+- **East and west, perpendicular to the M line** — distance to that
+  specific train vs. just being in Ridgewood generally. This is the one
+  bearing that can live-test the analysis's own unresolved confound: is
+  this a transit-quality effect or a neighborhood-identity one?
+
+## Method
 ```
-ln(rent_i) = β₀ + β₁·walk_L_i + β₂·walk_nonL_i + γ·X_i + ε_i
+ln(rent_i) = β₀ + β₁·walk_L_i + β₂·walk_nonL_i + β₃·walk_limited_i + γ·X_i + ε_i
 ```
-
-HC1 robust SEs. Descriptive accessibility gradient, not causal — station
-placement and neighborhood change are entangled in a cross-section.
-
-## The headline number
-
-**Half-life:** `w½ = ln(2) / |β₁|` — the walk time, in minutes, at which the
-L premium has decayed by half. `lib.half_life()`.
-
-Second number: total accessibility premium across the band vs. what the
-public actually captured (the tool/sketch side of the piece).
+- `walk_L`: network walk time to nearest L station.
+- `walk_nonL`: nearest *full-service* non-L station (A/C/J/Z, and — since
+  the fix — the Myrtle-Wyckoff Avs L+M complex).
+- `walk_limited`: nearest true M-only station (`config.py`'s
+  `LIMITED_SERVICE_ROUTES`). **This is the coefficient that matters.**
+- Controls X: median year built, median rooms, renter share, unit-mix
+  shares. HC1 robust SEs. Run once per rent series (combined/1BR/2BR/3BR).
+- Two charts per series: rent vs. `walk_L_min` (the original, now a null
+  result) and rent vs. `walk_limited_min` (the real one) —
+  `scatter_rent_vs_walk*.png` and `scatter_rent_vs_ridgewood*.png`.
 
 ## Pipeline
+| Script | Make target | Does |
+|---|---|---|
+| `src/01_pull_acs.py` | `make pull` | Stations → corridor → band → TIGER tracts → ACS pull (blended + per-bedroom). Tags L / full-service non-L / M-only-limited, complex-aware. Prints Gate 1. |
+| `src/02_walk_times.py` | `make walktimes` | OSMnx walk graph, multi-source Dijkstra x3 (L, full non-L, limited). |
+| `src/03_clean_join.py` | `make clean_join` | Cleans + plots **both** charts for all four rent series. Prints Gate 2 for each. |
+| `src/04_model.py` | `make model` | Fits all four series, prints β for `walk_L_min` *and* `walk_limited_min`, writes `model_summary*.txt` and `coefficients*.json`. |
 
-Scripts are numbered and run in order; `Makefile` wraps them.
+`src/config.py` holds every tunable knob. `src/lib.py` holds the tested
+logic (`clean_tracts`, `fit_model`, `is_limited_only`, etc.), parameterized
+by `rent_col`/`moe_col` so the same functions run all four series.
 
-| Script | Make target | Does | Status |
-|---|---|---|---|
-| `src/01_pull_acs.py` | `make pull` | Stations → corridor line → band polygon → TIGER tracts (Kings+Queens) → ACS pull. Prints **Gate 1**. | ✅ done |
-| `src/02_walk_times.py` | `make walktimes` | OSMnx walk graph, multi-source Dijkstra to L and non-L station sets. Slow first run (10–30 min), cached after. | ⏳ not run |
-| `src/03_clean_join.py` | `make clean_join` | Merge, clean, write `outputs/cleaning_log.md`, scatter w/ lowess. Prints **Gate 2**. | ⏳ not run |
-| `src/04_model.py` | `make model` | Fit, print β₁ / half-life / P0, write `outputs/model_summary.txt` and `outputs/tool/coefficients.json`. | ⏳ being rewritten by hand — **do not write this file for the user, review only** |
+## Status (as of 2026-09-19)
+- **Gate 1 & 2 — cleared, all four series, both charts.**
+- **Model complete, all four series.** L-specific effect: null, everywhere.
+  M-only/Ridgewood effect: strong and significant, everywhere.
+- **Substack post — draft in progress**, `substack_post.md` at repo root.
+  Real numbers in; closing thesis (who captures the Ridgewood premium)
+  still being decided.
+- **Walk materials — being rewritten** around Seneca Ave (`walk/route.md`
+  updated; `packet.md`/`script.md` still reference the old DeKalb-centered
+  design pending the closing-thesis decision).
+- Open, not a blocker: the Ridgewood-cluster confound (transit quality vs.
+  neighborhood identity) — the east/west bearings are designed to probe
+  this live.
 
-`src/config.py` holds every tunable knob (band radius, top-code, gate
-thresholds). `src/lib.py` holds the pure, tested logic — the only thing under
-test (`tests/test_lib.py`, offline, seconds).
+## Deadlines
+- **Sat Sep 19 (today)** — Substack findings post. Immovable.
+- **Sat Sep 26** — the walk, now starting at Seneca Ave (M), not DeKalb Av (L).
 
-## The two gates
+## How to work with me
+I direct this analysis; I don't write the code. That's a deliberate
+choice — my time goes to the walk series, not to becoming an engineer. So:
 
-- **Gate 1 — SAMPLE** (`01`, prints at end of `make pull`): is there enough
-  band to estimate on? Suggested floor `GATE1_COMFORTABLE_N = 120` usable
-  tracts. **Cleared 2026-09-10: 240 tracts in band, 20 Brooklyn L stations,
-  49 non-L stations for the control.** Lever if thin: raise
-  `BAND_RADIUS_MILES` in `config.py` and rerun `01` — nothing else changes.
-- **Gate 2 — SIGNAL** (`03`, prints at end of `make clean_join`): is there a
-  visible decaying relationship in `outputs/figures/scatter_rent_vs_walk.png`?
-  The bivariate slope it prints is an aid, not the gate — *the plot* is the
-  gate. Not yet run; needs `02`'s `walk_times.csv` first.
-
-## Hard deadlines
-
-- **Sat Sep 19** — Substack findings post.
-- **Sat Sep 26** — public math walk, meets at DeKalb Av (L).
-
-Both are immovable. Cut order if behind schedule: reel → p5 tool → Walk 09
-prep → robustness checks. Never the post, never the walk.
-
-## Working with the user on this repo
-
-The user is a math teacher rewriting `src/04_model.py` from scratch by hand —
-it's the actual analysis and what they'll be asked to defend in interviews.
-
-- **Never write `src/04_model.py` for them.** Review what they write and push
-  back with questions; don't hand over code. (The current file predates this
-  rule and is a full draft from an earlier session — left in place for
-  reference, not to be edited or treated as final.)
-- **Everything else in `src/` — walk through it function by function**, in
-  plain language, checking understanding with questions rather than just
-  explaining. This applies to `lib.py`, the numbered scripts, and `config.py`.
-- **Show diffs before applying changes**, with a plain-language note on what
-  the diff does, even for small fixes — the user asks for the code to be
-  legible to them line by line, not just correct.
-- Dependency/boilerplate fixes (imports, `requirements.txt`, path handling)
-  are fine to just make — they're not what the user is here to learn.
+- **Explain in plain English, not just code.** When you change something,
+  say what it does and why before applying it.
+- **Keep it simple.** Prefer the readable version over the clever one.
+  Parameters belong in `config.py` so Walk No. 09 is a config change, not
+  a rewrite.
+- **The analysis decisions are mine.** Specification, controls, sample
+  frame, interpretation — propose options, don't decide.
+- **Maintain a plain-prose section in README.md** describing what each
+  script does. Not code comments. Prose I can read in six months.
+- Don't add dependencies or abstractions without asking.

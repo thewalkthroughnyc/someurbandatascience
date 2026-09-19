@@ -75,13 +75,16 @@ def main() -> None:
     tr_nodes, tr_snap_m = snap(Gp, tr_pts)
 
     src_L = set(st_nodes[st_proj.is_L.values])
-    src_nonL = set(st_nodes[~st_proj.is_L.values])
-    print(f"      sources: {len(src_L)} L nodes, {len(src_nonL)} non-L nodes")
+    src_limited = set(st_nodes[st_proj.is_limited.values])
+    src_full_nonL = set(st_nodes[(~st_proj.is_L.values) & (~st_proj.is_limited.values)])
+    print(f"      sources: {len(src_L)} L nodes, {len(src_full_nonL)} full-service "
+          f"non-L nodes, {len(src_limited)} limited-service (M-only) nodes")
 
     # --- one Dijkstra per station set ------------------------------------
-    print("[3/3] Multi-source Dijkstra x2 (edge lengths are meters)")
+    print("[3/3] Multi-source Dijkstra x3 (edge lengths are meters)")
     dist_L = nx.multi_source_dijkstra_path_length(Gp, src_L, weight="length")
-    dist_nonL = nx.multi_source_dijkstra_path_length(Gp, src_nonL, weight="length")
+    dist_nonL = nx.multi_source_dijkstra_path_length(Gp, src_full_nonL, weight="length")
+    dist_limited = nx.multi_source_dijkstra_path_length(Gp, src_limited, weight="length")
 
     def minutes(dist_map, node, snap_m):
         d = dist_map.get(node)
@@ -93,6 +96,7 @@ def main() -> None:
         "GEOID": tracts["GEOID"].values,
         "walk_L_min": [minutes(dist_L, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
         "walk_nonL_min": [minutes(dist_nonL, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
+        "walk_limited_min": [minutes(dist_limited, n, s) for n, s in zip(tr_nodes, tr_snap_m)],
         "snap_m": tr_snap_m.round(1),
     })
 
@@ -110,8 +114,9 @@ def main() -> None:
 
     n_unreach = int(out["walk_L_min"].isna().sum())
     print("\nSaved data/processed/walk_times.csv")
-    print(f"  median walk to L:      {out.walk_L_min.median():5.1f} min")
-    print(f"  median walk to non-L:  {out.walk_nonL_min.median():5.1f} min")
+    print(f"  median walk to L:              {out.walk_L_min.median():5.1f} min")
+    print(f"  median walk to full non-L:     {out.walk_nonL_min.median():5.1f} min")
+    print(f"  median walk to limited (M-only): {out.walk_limited_min.median():5.1f} min")
     print(f"  unreachable tracts:    {n_unreach}   "
           f"(become NaN; dropped + logged in 03)")
     print(f"  total: {time.time() - t0:,.0f}s")
