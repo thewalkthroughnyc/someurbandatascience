@@ -42,6 +42,7 @@ SERIES = [
 def run_series(label: str, suffix: str, rent_col: str) -> tuple[str, dict]:
     """Fit one series; return (summary text, coefficients payload) rather
     than writing per-suffix files, so main() can consolidate all four."""
+    suffix = C.SPINE_TAG + suffix
     df = pd.read_csv(C.PROCESSED / f"analysis_table{suffix}.csv", dtype={"GEOID": str})
     res, info = lib.fit_model(df, rent_col=rent_col)
     p0 = lib.predicted_p0(res, df)
@@ -88,10 +89,10 @@ def main() -> None:
         summaries.append(summary_text)
         coefficients[suffix.lstrip("_") or "combined"] = coeff_payload
 
-    (C.ROOT / "outputs" / "model_summary.txt").write_text("\n\n".join(summaries))
-    lib.write_json(C.TOOL / "coefficients.json", coefficients)
-    print("\n-> outputs/model_summary.txt, outputs/tool/coefficients.json "
-          "(all four series, one file each)")
+    (C.ROOT / "outputs" / f"model_summary{C.SPINE_TAG}.txt").write_text("\n\n".join(summaries))
+    lib.write_json(C.TOOL / f"coefficients{C.SPINE_TAG}.json", coefficients)
+    print(f"\n-> outputs/model_summary{C.SPINE_TAG}.txt, "
+          f"outputs/tool/coefficients{C.SPINE_TAG}.json (all four series, one file each)")
 
     print("\n" + "=" * 62)
     print("Caveats that go in the writeup, not under the rug:")

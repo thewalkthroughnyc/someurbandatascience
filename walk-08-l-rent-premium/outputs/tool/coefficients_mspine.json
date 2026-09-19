@@ -1,0 +1,38 @@
+{
+  "combined": {
+    "beta1_per_min": -0.00823,
+    "p0_monthly_rent": 2229.0,
+    "half_life_min": 84.2,
+    "n_tracts": 113,
+    "source": "model",
+    "generated": "2026-09-19 13:17",
+    "beta1_t": -1.6
+  },
+  "1br": {
+    "beta1_per_min": -0.01216,
+    "p0_monthly_rent": 2270.0,
+    "half_life_min": 57.0,
+    "n_tracts": 98,
+    "source": "model",
+    "generated": "2026-09-19 13:17",
+    "beta1_t": -1.91
+  },
+  "2br": {
+    "beta1_per_min": -0.01006,
+    "p0_monthly_rent": 2297.0,
+    "half_life_min": 68.9,
+    "n_tracts": 108,
+    "source": "model",
+    "generated": "2026-09-19 13:17",
+    "beta1_t": -1.58
+  },
+  "3br": {
+    "beta1_per_min": 0.00349,
+    "p0_monthly_rent": 2211.0,
+    "half_life_min": 198.6,
+    "n_tracts": 102,
+    "source": "model",
+    "generated": "2026-09-19 13:17",
+    "beta1_t": 0.8
+  }
+}

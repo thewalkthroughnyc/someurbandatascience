@@ -48,9 +48,9 @@ def snap(G, gdf_proj):
 
 def main() -> None:
     t0 = time.time()
-    tracts = gpd.read_file(C.PROCESSED / "band_tracts.geojson")
-    stations = gpd.read_file(C.PROCESSED / "stations_band.geojson")
-    band = gpd.read_file(C.PROCESSED / "band.geojson")
+    tracts = gpd.read_file(C.PROCESSED / f"band_tracts{C.SPINE_TAG}.geojson")
+    stations = gpd.read_file(C.PROCESSED / f"stations_band{C.SPINE_TAG}.geojson")
+    band = gpd.read_file(C.PROCESSED / f"band{C.SPINE_TAG}.geojson")
 
     # --- build the graph over band + margin, in lat/lon for Overpass -----
     poly = (
@@ -84,9 +84,15 @@ def main() -> None:
 
     # --- one Dijkstra per station set ------------------------------------
     print("[3/3] Multi-source Dijkstra x3 (edge lengths are meters)")
-    dist_M = nx.multi_source_dijkstra_path_length(Gp, src_M, weight="length")
-    dist_L = nx.multi_source_dijkstra_path_length(Gp, src_L, weight="length")
-    dist_nonL = nx.multi_source_dijkstra_path_length(Gp, src_full_nonL, weight="length")
+    def dijkstra(sources):
+        # An M-spine band can leave a control set with no stations in reach;
+        # an empty source set means "no such station nearby" -> all NaN, and
+        # fit_model drops that control automatically.
+        return nx.multi_source_dijkstra_path_length(Gp, sources, weight="length") if sources else {}
+
+    dist_M = dijkstra(src_M)
+    dist_L = dijkstra(src_L)
+    dist_nonL = dijkstra(src_full_nonL)
 
     def minutes(dist_map, node, snap_m):
         d = dist_map.get(node)
@@ -112,10 +118,10 @@ def main() -> None:
     )
     out["nearest_M_station"] = m_st["name"].values[nearest_idx]
 
-    out.to_csv(C.PROCESSED / "walk_times.csv", index=False)
+    out.to_csv(C.PROCESSED / f"walk_times{C.SPINE_TAG}.csv", index=False)
 
     n_unreach = int(out["walk_M_min"].isna().sum())
-    print("\nSaved data/processed/walk_times.csv")
+    print(f"\nSaved data/processed/walk_times{C.SPINE_TAG}.csv")
     print(f"  median walk to nearest M-only station: {out.walk_M_min.median():5.1f} min")
     print(f"  (controls) median walk to full non-L:  {out.walk_nonL_min.median():5.1f} min")
     print(f"  (controls) median walk to L:           {out.walk_L_min.median():5.1f} min")

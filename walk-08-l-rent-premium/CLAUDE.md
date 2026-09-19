@@ -64,6 +64,17 @@ ln(rent_i) = β₀ + β₁·walk_M_i + controls + ε_i
   correlation looks stronger, but the controlled model loses power — 3 of
   4 series stop being significant. The full-sample result is the reliable
   one; the restricted version is a caveat, not a replacement.
+- Sample-frame check (`BAND_SPINE=M make all`): redraw the band around the
+  M's own Ridgewood run instead of the L corridor. Sample halves (113
+  usable tracts vs. 227) and the contrast collapses — median walk to the
+  nearest M-only station drops from 44 min to 18, so nearly every tract is
+  "near." Point estimates go the same way and get larger (−0.82%/min
+  combined) but none of the four series is significant (t = −1.6 to −1.9;
+  3BR flips sign). **Read as consistent but underpowered, not as a failed
+  replication** — Jordan's call, 2026-09-19. The original band's power
+  comes from containing the far-from-M tracts that give the gradient
+  something to be measured against. The headline stands on the original
+  sample; say so plainly in the writeup.
 
 ## Pipeline
 | Script | Make target | Does |
@@ -80,14 +91,21 @@ by `rent_col`/`moe_col` so the same functions run all four series.
 `walk_M_min` to confirm the model recovers it.
 
 The band (`BAND_RADIUS_MILES`) is buffered around a corridor spine drawn
-along the L's Brooklyn run — the long east-west line a band can be
-buffered around — and it's the band's reach north into Queens that
-captures the M-only cluster. The sample frame has not been redrawn around
-the M line itself; the finding was made in this sample.
+through one line's stations in order — `config.BAND_SPINE`, read from the
+environment. Default `"L"`: the Brooklyn L run, a long east-west spine
+whose band reaches north into Queens and captures the M-only cluster; the
+original sample, plain filenames, where the finding was made. `"M"`: the
+Myrtle Av M run (GTFS M01–M10, Middle Village → Central Av); every
+processed/output file gets a `_mspine` tag so both runs coexist. Run it
+with `BAND_SPINE=M make all`. See the sample-frame check under Method for
+how the two compare.
 
 ## Status (as of 2026-09-19)
 - Gates 1 & 2 cleared, all four series. Model complete; M-first everywhere
   in code, outputs, and docs.
+- Sample-frame robustness run (`_mspine` outputs) done and committed;
+  consistent direction, not significant. Headline stays on the original
+  band.
 - Substack post — Jordan is writing it; `substack_post.md` is a reference
   draft, not the final.
 - Walk materials — Seneca Ave start; bearings A/B expectations set from

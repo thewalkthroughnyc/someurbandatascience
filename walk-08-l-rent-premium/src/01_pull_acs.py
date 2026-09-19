@@ -114,14 +114,27 @@ def main() -> None:
         st, geometry=[Point(xy) for xy in zip(st.lon, st.lat)], crs=4326
     ).to_crs(C.EPSG_LOCAL)
 
-    # The band is buffered around a long east-west spine so it has enough
-    # perpendicular reach; the Brooklyn L run is that spine. The band's reach
-    # north into Queens is what captures the M-only cluster — the subject.
-    spine = st_gdf[st_gdf.is_L & (st_gdf.borough == "Bk")].sort_values("gtfs_id")
-    if len(spine) < 10:
-        sys.exit(f"Expected ~19 corridor-spine stations, found {len(spine)} — "
-                 "check the Borough / Daytime Routes columns in data/raw/mta_stations.csv")
-    print(f"  Corridor spine: {len(spine)} stations "
+    # The band is buffered around a spine line drawn through one line's
+    # stations in order (config.BAND_SPINE). GTFS stop IDs are sequential
+    # along a line, so sorting by them orders the spine.
+    #   "L": the Brooklyn L run — a long east-west spine whose band reaches
+    #        north into Queens and captures the M-only cluster. The original
+    #        sample; the finding was made here.
+    #   "M": the Myrtle Av M run, M01 (Middle Village) .. M10 (Central Av) —
+    #        redraws the sample around the subject itself, as a robustness check.
+    if C.BAND_SPINE == "L":
+        spine = st_gdf[st_gdf.is_L & (st_gdf.borough == "Bk")]
+        expected, floor = "~19", 10
+    elif C.BAND_SPINE == "M":
+        spine = st_gdf[st_gdf.gtfs_id.str.startswith("M") & (st_gdf.gtfs_id <= "M10")]
+        expected, floor = "7", 5
+    else:
+        sys.exit(f"config.BAND_SPINE must be 'L' or 'M', got {C.BAND_SPINE!r}")
+    spine = spine.sort_values("gtfs_id")
+    if len(spine) < floor:
+        sys.exit(f"Expected {expected} spine stations for BAND_SPINE={C.BAND_SPINE}, "
+                 f"found {len(spine)} — check data/raw/mta_stations.csv")
+    print(f"  Corridor spine ({C.BAND_SPINE} line): {len(spine)} stations "
           f"({spine.iloc[0]['name']} .. {spine.iloc[-1]['name']})")
 
     corridor = lib.corridor_line(list(zip(spine.geometry.x, spine.geometry.y)))
@@ -166,13 +179,14 @@ def main() -> None:
     keep = ["GEOID", "NAME", "intpt_lat", "intpt_lon", "ALAND", "acs_vintage",
             *C.ACS_VARS.values(), "geometry"]
     band_tracts = merged[keep].to_crs(4326)
-    band_tracts.to_file(C.PROCESSED / "band_tracts.geojson", driver="GeoJSON")
+    tag = C.SPINE_TAG
+    band_tracts.to_file(C.PROCESSED / f"band_tracts{tag}.geojson", driver="GeoJSON")
     gpd.GeoDataFrame(geometry=[band], crs=C.EPSG_LOCAL).to_crs(4326).to_file(
-        C.PROCESSED / "band.geojson", driver="GeoJSON")
-    near.to_crs(4326).to_file(C.PROCESSED / "stations_band.geojson", driver="GeoJSON")
-    print("  data/processed/band_tracts.geojson  (tract polygons + ACS attrs)")
-    print("  data/processed/band.geojson         (the band — the p5 sketch can use this)")
-    print("  data/processed/stations_band.geojson")
+        C.PROCESSED / f"band{tag}.geojson", driver="GeoJSON")
+    near.to_crs(4326).to_file(C.PROCESSED / f"stations_band{tag}.geojson", driver="GeoJSON")
+    print(f"  data/processed/band_tracts{tag}.geojson  (tract polygons + ACS attrs)")
+    print(f"  data/processed/band{tag}.geojson         (the band — the p5 sketch can use this)")
+    print(f"  data/processed/stations_band{tag}.geojson")
 
     n_total = len(band_tracts)
     n_rent = int(band_tracts["med_rent"].notna().sum())

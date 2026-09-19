@@ -7,6 +7,7 @@ Every parameter you might turn at a gate lives here, so a Gate 1 fix
 ("widen the band") is a one-line edit, not a code hunt.
 """
 
+import os
 from pathlib import Path
 
 # ---------------------------------------------------------------- paths
@@ -77,8 +78,21 @@ BAND_RADIUS_MILES = 1.25   # buffer around the corridor line, both sides. The
                            # the M-only cluster — the subject — sits.
                            # GATE 1 LEVER: if the tract count is thin, raise
                            # this (1.5) and rerun 01. Nothing else changes.
-NONL_STATION_MARGIN_MILES = 0.5   # non-L stations just outside the band still
-                                  # matter for the control; include them.
+NONL_STATION_MARGIN_MILES = 0.5   # stations just outside the band still matter
+                                  # as sources; include them.
+
+BAND_SPINE = os.environ.get("BAND_SPINE", "L").upper()
+                           # Which line's stations the corridor spine is drawn
+                           # through before buffering:
+                           #   "L" — the Brooklyn L run. The original sample;
+                           #         the finding was made here. Default.
+                           #   "M" — the Myrtle Av M run through Ridgewood /
+                           #         Middle Village. A robustness check that
+                           #         redraws the sample around the subject.
+                           # Run the alternate with:  BAND_SPINE=M make all
+SPINE_TAG = "" if BAND_SPINE == "L" else f"_{BAND_SPINE.lower()}spine"
+                           # suffix on every processed/output file so both runs
+                           # coexist; the L run keeps the plain filenames.
 
 LIMITED_SERVICE_ROUTES = ["M"]    # stations where this is the ONLY route get
                                   # split into a separate, weaker tier: the M

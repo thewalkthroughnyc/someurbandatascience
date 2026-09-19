@@ -1,0 +1,162 @@
+==============================================================
+ WALK NO. 08 — COMBINED (ALL BEDROOMS)
+==============================================================
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               log_rent   R-squared:                       0.388
+Model:                            OLS   Adj. R-squared:                  0.341
+Method:                 Least Squares   F-statistic:                     4.529
+Date:                Sat, 19 Sep 2026   Prob (F-statistic):           9.50e-05
+Time:                        13:17:38   Log-Likelihood:                -4.5648
+No. Observations:                 113   AIC:                             27.13
+Df Residuals:                     104   BIC:                             51.68
+Df Model:                           8                                         
+Covariance Type:                  HC1                                         
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          1.8922      3.621      0.523      0.601      -5.204       8.988
+walk_M_min        -0.0082      0.005     -1.597      0.110      -0.018       0.002
+walk_L_min         0.0015      0.004      0.398      0.691      -0.006       0.009
+walk_nonL_min     -0.0076      0.004     -2.080      0.038      -0.015      -0.000
+med_year_built     0.0037      0.002      1.974      0.048    2.72e-05       0.007
+med_rooms         -0.2504      0.084     -2.972      0.003      -0.416      -0.085
+renter_share      -0.3477      0.384     -0.905      0.365      -1.100       0.405
+share_1unit        0.9008      0.302      2.987      0.003       0.310       1.492
+share_20plus      -1.0521      0.263     -3.996      0.000      -1.568      -0.536
+==============================================================================
+Omnibus:                       45.161   Durbin-Watson:                   1.881
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              229.208
+Skew:                          -1.198   Prob(JB):                     1.69e-50
+Kurtosis:                       9.553   Cond. No.                     2.56e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The condition number is large, 2.56e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+Restricted to walk_M_min <= 30 min (N=106): b1 = -0.0103 (se 0.0062, t=-1.66)
+
+
+==============================================================
+ WALK NO. 08 — 1BR
+==============================================================
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               log_rent   R-squared:                       0.309
+Model:                            OLS   Adj. R-squared:                  0.247
+Method:                 Least Squares   F-statistic:                     6.149
+Date:                Sat, 19 Sep 2026   Prob (F-statistic):           2.68e-06
+Time:                        13:17:38   Log-Likelihood:                -17.249
+No. Observations:                  98   AIC:                             52.50
+Df Residuals:                      89   BIC:                             75.76
+Df Model:                           8                                         
+Covariance Type:                  HC1                                         
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept         -2.8464      3.728     -0.764      0.445     -10.153       4.460
+walk_M_min        -0.0122      0.006     -1.905      0.057      -0.025       0.000
+walk_L_min         0.0020      0.005      0.403      0.687      -0.008       0.012
+walk_nonL_min     -0.0094      0.005     -1.994      0.046      -0.019      -0.000
+med_year_built     0.0061      0.002      3.125      0.002       0.002       0.010
+med_rooms         -0.2654      0.103     -2.565      0.010      -0.468      -0.063
+renter_share      -0.1194      0.463     -0.258      0.796      -1.026       0.787
+share_1unit        0.9017      0.322      2.800      0.005       0.271       1.533
+share_20plus      -1.0019      0.394     -2.544      0.011      -1.774      -0.230
+==============================================================================
+Omnibus:                       33.185   Durbin-Watson:                   2.246
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              108.239
+Skew:                          -1.081   Prob(JB):                     3.13e-24
+Kurtosis:                       7.673   Cond. No.                     2.45e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The condition number is large, 2.45e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+Restricted to walk_M_min <= 30 min (N=92): b1 = -0.0133 (se 0.0072, t=-1.84)
+
+
+==============================================================
+ WALK NO. 08 — 2BR
+==============================================================
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               log_rent   R-squared:                       0.342
+Model:                            OLS   Adj. R-squared:                  0.289
+Method:                 Least Squares   F-statistic:                     2.605
+Date:                Sat, 19 Sep 2026   Prob (F-statistic):             0.0125
+Time:                        13:17:38   Log-Likelihood:                -19.190
+No. Observations:                 108   AIC:                             56.38
+Df Residuals:                      99   BIC:                             80.52
+Df Model:                           8                                         
+Covariance Type:                  HC1                                         
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          3.0313      4.360      0.695      0.487      -5.515      11.578
+walk_M_min        -0.0101      0.006     -1.584      0.113      -0.023       0.002
+walk_L_min         0.0028      0.004      0.656      0.512      -0.006       0.011
+walk_nonL_min     -0.0078      0.004     -1.841      0.066      -0.016       0.001
+med_year_built     0.0036      0.002      1.559      0.119      -0.001       0.008
+med_rooms         -0.3864      0.117     -3.317      0.001      -0.615      -0.158
+renter_share      -0.7376      0.442     -1.667      0.096      -1.605       0.130
+share_1unit        0.8386      0.408      2.054      0.040       0.039       1.639
+share_20plus      -0.8915      0.328     -2.717      0.007      -1.534      -0.248
+==============================================================================
+Omnibus:                       51.851   Durbin-Watson:                   1.574
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              241.023
+Skew:                          -1.525   Prob(JB):                     4.60e-53
+Kurtosis:                       9.653   Cond. No.                     2.58e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The condition number is large, 2.58e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+Restricted to walk_M_min <= 30 min (N=102): b1 = -0.0133 (se 0.0074, t=-1.79)
+
+
+==============================================================
+ WALK NO. 08 — 3BR
+==============================================================
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               log_rent   R-squared:                       0.188
+Model:                            OLS   Adj. R-squared:                  0.118
+Method:                 Least Squares   F-statistic:                     1.544
+Date:                Sat, 19 Sep 2026   Prob (F-statistic):              0.153
+Time:                        13:17:38   Log-Likelihood:                -9.6270
+No. Observations:                 102   AIC:                             37.25
+Df Residuals:                      93   BIC:                             60.88
+Df Model:                           8                                         
+Covariance Type:                  HC1                                         
+==================================================================================
+                     coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------
+Intercept          9.1495      4.450      2.056      0.040       0.428      17.871
+walk_M_min         0.0035      0.004      0.805      0.421      -0.005       0.012
+walk_L_min        -0.0040      0.003     -1.206      0.228      -0.011       0.003
+walk_nonL_min      0.0013      0.004      0.346      0.730      -0.006       0.009
+med_year_built    -0.0002      0.002     -0.100      0.920      -0.005       0.004
+med_rooms         -0.2225      0.126     -1.768      0.077      -0.469       0.024
+renter_share       0.0653      0.360      0.181      0.856      -0.640       0.771
+share_1unit        0.7372      0.364      2.025      0.043       0.024       1.451
+share_20plus      -0.7199      0.429     -1.678      0.093      -1.561       0.121
+==============================================================================
+Omnibus:                        9.414   Durbin-Watson:                   1.906
+Prob(Omnibus):                  0.009   Jarque-Bera (JB):                9.764
+Skew:                          -0.596   Prob(JB):                      0.00758
+Kurtosis:                       3.936   Cond. No.                     2.46e+05
+==============================================================================
+
+Notes:
+[1] Standard Errors are heteroscedasticity robust (HC1)
+[2] The condition number is large, 2.46e+05. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+Restricted to walk_M_min <= 30 min (N=97): b1 = +0.0056 (se 0.0047, t=+1.18)

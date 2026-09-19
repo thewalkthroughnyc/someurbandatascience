@@ -74,6 +74,7 @@ def make_scatter(d: pd.DataFrame, rent_col: str, x_col: str, x_label: str,
 
 
 def process_series(df: pd.DataFrame, label: str, rent_col: str, moe_col: str, suffix: str) -> None:
+    suffix = C.SPINE_TAG + suffix   # e.g. "_mspine_1br"; plain "_1br" for the L-spine run
     clean, log = lib.clean_tracts(df, rent_col=rent_col, moe_col=moe_col)
     clean.to_csv(C.PROCESSED / f"analysis_table{suffix}.csv", index=False)
 
@@ -109,8 +110,8 @@ def process_series(df: pd.DataFrame, label: str, rent_col: str, moe_col: str, su
 
 
 def main() -> None:
-    tracts = gpd.read_file(C.PROCESSED / "band_tracts.geojson")
-    walks = pd.read_csv(C.PROCESSED / "walk_times.csv", dtype={"GEOID": str})
+    tracts = gpd.read_file(C.PROCESSED / f"band_tracts{C.SPINE_TAG}.geojson")
+    walks = pd.read_csv(C.PROCESSED / f"walk_times{C.SPINE_TAG}.csv", dtype={"GEOID": str})
     df = pd.DataFrame(tracts.drop(columns="geometry")).merge(
         walks, on="GEOID", how="left", validate="1:1"
     )
