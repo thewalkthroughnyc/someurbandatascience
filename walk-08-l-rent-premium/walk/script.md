@@ -10,4 +10,7 @@
   read rising, slightly — the Bushwick/Ridgewood end is the expensive end.
   Bearings C/D (perpendicular) are the genuinely open question — live data,
   not a known answer.
-- Close on the value-capture question <!-- Jordan: which one — see packet.md, still undecided -->
+- Close on the value-capture question: **if proximity to a subway station
+  generates a premium, who captures it?** Same wording as the post and the
+  packet — say it as written rather than paraphrasing, so it lands as the
+  question they've been walking on all afternoon.

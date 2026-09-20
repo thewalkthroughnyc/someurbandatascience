@@ -1,6 +1,6 @@
 # Walk No. 08 — The Ridgewood Rent Premium
 
-**Status: in progress** — model complete: rent rises the closer you get to Ridgewood's M-only stations, a real and robust finding · walk **Sat Sep 26**, meets at the Seneca Ave (M) station. <!-- Jordan: add the Luma RSVP link here and at the bottom -->
+**Status: in progress** — model complete: rent rises the closer you get to Ridgewood's M-only stations, a real and robust finding · walk **Sat Sep 26**, meets at the Seneca Ave (M) station · [RSVP](https://luma.com/yd7jpq91)
 
 Part of [The Walkthrough NYC](https://example.substack.com) <!-- Jordan: real link -->, a public math walk series: publish a question, build the analysis in the open, then test the finding with strangers on a sidewalk.
 
@@ -95,4 +95,8 @@ Sat Sep 26, ~90 minutes, starting at the **Seneca Ave (M)** station entrance —
 - **South, toward Myrtle-Wyckoff Avs** — the Bushwick/Ridgewood end of the cluster. The data says rent rises this way, slightly — roughly $2,080 to $2,130 — and keeps rising past Myrtle-Wyckoff toward Central Av (~$2,400), the most expensive stretch of the line.
 - **East and west, perpendicular to the M line** — tests whether this is really about that specific train, or just about being in Ridgewood generally. No prediction from the data; this is the live experiment.
 
-Each team predicts a rent *before* looking anything up — anchored on their own housing (their own bedroom count, their own rent, their own walk to a subway), not a hypothetical bedroom size, since the finding holds the same way regardless of unit size. We regroup to plot everyone's guesses against the model on one chart, live. <!-- Jordan: RSVP link, and the closing question — your call, substack_post.md has a couple of draft directions. -->
+Each team predicts a rent *before* looking anything up — anchored on their own housing (their own bedroom count, their own rent, their own walk to a subway), not a hypothetical bedroom size, since the finding holds the same way regardless of unit size. We regroup to plot everyone's guesses against the model on one chart, live.
+
+We close on the question the post ends on: **if proximity to a subway station generates a premium, who captures it?**
+
+**[RSVP for the walk.](https://luma.com/yd7jpq91)**
