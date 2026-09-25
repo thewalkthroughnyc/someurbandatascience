@@ -42,7 +42,7 @@ START = "Seneca Ave & Palmetto St"
 GROUPS = {
     "north": ("NORTH", "Up Palmetto St → right on Woodward Ave → left on Putnam Ave,\nheading toward the Fresh Pond Rd station."),
     "south": ("SOUTH", "West on Seneca Ave → a block over, left on Gates Ave,\nheading down toward Knickerbocker Ave."),
-    "west":  ("WEST",  "Down Seneca Ave → Grover Cleveland Park → right on Hart St,\nout to the intersections. (This group walks with Jordan.)"),
+    "west":  ("WEST",  "Down Seneca Ave → Grover Cleveland Park → right on Hart St,\nout to the intersections."),
     "east":  ("EAST",  "East along Seneca Ave, toward Evergreen Park."),
 }
 
