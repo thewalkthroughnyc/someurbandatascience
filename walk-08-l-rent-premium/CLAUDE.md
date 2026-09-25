@@ -1,4 +1,4 @@
-# Walk No. 08 — The Ridgewood Rent Premium
+# Walk No. 04 — The Ridgewood Rent Premium
 
 ## What this is
 Analysis behind a public math walk, not a portfolio project. The
@@ -125,7 +125,7 @@ choice — my time goes to the walk series, not to becoming an engineer. So:
 - **Explain in plain English, not just code.** When you change something,
   say what it does and why before applying it.
 - **Keep it simple.** Prefer the readable version over the clever one.
-  Parameters belong in `config.py` so Walk No. 09 is a config change, not
+  Parameters belong in `config.py` so Walk No. 05 is a config change, not
   a rewrite.
 - **The analysis decisions are mine.** Specification, controls, sample
   frame, interpretation — propose options, don't decide.

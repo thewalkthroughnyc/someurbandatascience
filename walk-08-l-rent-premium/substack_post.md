@@ -1,23 +1,20 @@
-# The train that pays you back isn't the one I expected
-
-<!-- Jordan: working title — swap for your own. Alternates: "It's not the L,"
-or "How much of your rent is the walk to the train?" -->
+How much of your rent is the walk to the train? 
 
 It's nice living near a subway station. Almost like a cheat code. I get off at
 Wilson Ave and within 30 seconds I'm home. That's a big quality-of-life upgrade.
-When I lived in Baltimore, catching the bus wasn't just unreliable — I also had a
+When I lived in Baltimore, catching the bus wasn't just unreliable: I also had a
 five-to-seven-minute walk across a parking lot before I got to my door.
 
 It got me thinking: if it's so nice to live near a subway station, does rent get
 cheaper the further away you live? I figured it probably does. Zoom out far
-enough and it's obviously true — rents fall as you head toward the edges of the
+enough and it's obviously true: rents fall as you head toward the edges of the
 outer boroughs, and subway service thins out or stops entirely. But does that
 hold at the neighborhood scale? Put more precisely: in Bushwick, does rent fall
 the further you walk from the L? And if it does, then proximity is generating a
 premium — so who's capturing it?
 
-I started digging and came across *The Impact of Railway Stations on Residential
-and Commercial Property Value: A Meta-analysis* (Debrezion et al., 2007). The
+I started digging and came across: The Impact of Railway Stations on Residential
+and Commercial Property Value: A Meta-analysis (Debrezion et al., 2007). The
 finding that stood out: for every 250 meters closer you live to a railway
 station, property value rises about 2.4%. That's across commuter rail and heavy
 rail both, so the NYC subway counts. So yes — there's a premium for living near
@@ -48,7 +45,7 @@ rises, falls, or holds steady as they go. Then we check those predictions agains
 the model and against StreetEasy listings, and talk about what we find.
 
 And the real question underneath it: if proximity to a subway station generates a
-premium — who captures it?
+premium, who captures it?
 
 **Saturday, Sept 26, 2 p.m. — Seneca Ave (M).** We'll find out on the sidewalk
 and argue about it at a café afterward. No math background needed. Just an open

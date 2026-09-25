@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-"""Walk No. 08 — all knobs in one place.
+"""Walk No. 04 — all knobs in one place.
 
 Every parameter you might turn at a gate lives here, so a Gate 1 fix
 ("widen the band") is a one-line edit, not a code hunt.

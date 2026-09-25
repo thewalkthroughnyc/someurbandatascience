@@ -55,7 +55,7 @@ def test_cleaning():
 
 
 def test_model_recovery():
-    rng = np.random.default_rng(8)           # walk 08, of course
+    rng = np.random.default_rng(4)           # walk 04, of course
     n = 300
     beta1_true = -0.03                       # planted on the M distance
     walk_M = rng.uniform(1, 35, n)

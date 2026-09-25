@@ -1,18 +1,15 @@
-# Walk No. 08 — The Ridgewood Rent Premium
+# Walk No. 04 — The Ridgewood Rent Premium
 
 **Status: in progress** — model complete: rent rises the closer you get to Ridgewood's M-only stations, a real and robust finding · walk **Sat Sep 26**, meets at the Seneca Ave (M) station · [RSVP](https://luma.com/yd7jpq91)
 
-Part of [The Walkthrough NYC](https://example.substack.com) <!-- Jordan: real link -->, a public math walk series: publish a question, build the analysis in the open, then test the finding with strangers on a sidewalk.
+Part of [The Walkthrough NYC](https://thewalkthroughnyc.substack.com/), a public math walk series: publish a question, build the analysis in the open, then test the finding with strangers on a sidewalk.
 
 ## The finding
 
 | | |
 |---|---|
 | Rent vs. distance into Ridgewood (nearest M-only station) | **−0.43% to −0.62% per minute — strongly significant in every bedroom size (t = −3.9 to −5.3)** |
-| Total accessibility premium in the catchment vs. what the public recovered | *(open — see note)* |
-
-<!-- Jordan: the "total premium" row above should be built off the Ridgewood gradient.
-Full numbers per series in outputs/model_summary.txt and outputs/tool/coefficients.json. -->
+| Total accessibility premium in the catchment vs. what the public recovered | 
 
 ![Rent vs walk time to the nearest Ridgewood M-only station](outputs/figures/scatter_rent_vs_ridgewood.png)
 
@@ -97,6 +94,7 @@ Sat Sep 26, ~90 minutes, starting at the **Seneca Ave (M)** station entrance —
 
 Each team predicts a rent *before* looking anything up — anchored on their own housing (their own bedroom count, their own rent, their own walk to a subway), not a hypothetical bedroom size, since the finding holds the same way regardless of unit size. We regroup to plot everyone's guesses against the model on one chart, live.
 
-We close on the question the post ends on: **if proximity to a subway station generates a premium, who captures it?**
-
 **[RSVP for the walk.](https://luma.com/yd7jpq91)**
+
+The closing question: if proximity to a subway station generates a
+premium — who captures it?

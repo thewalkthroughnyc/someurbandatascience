@@ -1,4 +1,4 @@
-# HANDOFF — Walk No. 08 (L-train rent premium)
+# HANDOFF — Walk No. 04 (L-train rent premium)
 
 > **SUPERSEDED — 2026-09-19.** This describes the original scaffold-building
 > plan from Sep 7, centered on the L corridor. The actual finding turned out
@@ -73,7 +73,7 @@ Note: `01` prints Gate 1 as soon as it runs, so Wednesday's checkpoint may clear
 on Monday night. If so, everything pulls forward and the freed time goes to the
 p5 tool — the artifact most at risk of getting cut.
 
-**Cut order if behind:** reel → p5 tool → Walk 09 prep → robustness checks.
+**Cut order if behind:** reel → p5 tool → Walk 05 prep → robustness checks.
 Never the post, never the walk.
 
 ---

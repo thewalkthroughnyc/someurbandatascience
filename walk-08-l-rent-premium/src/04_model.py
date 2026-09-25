@@ -66,7 +66,7 @@ def run_series(label: str, suffix: str, rent_col: str) -> tuple[str, dict]:
           f"(se {info_near['beta1_se']:.4f}, t={info_near['beta1_t']:+.2f})")
 
     summary_text = (
-        f"{'=' * 62}\n WALK NO. 08 — {label.upper()}\n{'=' * 62}\n"
+        f"{'=' * 62}\n WALK NO. 04 — {label.upper()}\n{'=' * 62}\n"
         f"{res.summary()}\n\n"
         f"Restricted to walk_M_min <= 30 min (N={info_near['n']}): "
         f"b1 = {info_near['beta1_per_min']:+.4f} "
@@ -79,7 +79,7 @@ def run_series(label: str, suffix: str, rent_col: str) -> tuple[str, dict]:
 
 def main() -> None:
     print("=" * 62)
-    print(" WALK NO. 08 — THE RIDGEWOOD GRADIENT, PER BEDROOM SIZE")
+    print(" WALK NO. 04 — THE RIDGEWOOD GRADIENT, PER BEDROOM SIZE")
     print("=" * 62)
 
     summaries = []

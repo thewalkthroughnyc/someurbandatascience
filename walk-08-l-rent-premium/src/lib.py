@@ -1,4 +1,4 @@
-"""Walk No. 08 — shared logic, kept out of the run scripts so it can be tested.
+"""Walk No. 04 — shared logic, kept out of the run scripts so it can be tested.
 
 Rule of thumb: anything that touches the network (Census API, Overpass,
 data.ny.gov) lives in the numbered scripts; anything that transforms data
