@@ -15,9 +15,12 @@ model:       ## 04 — fit the M model, export coefficients.json for the p5 tool
 packet:      ## print-ready walk packets, one PDF per group (not part of `all`)
 	$(PY) src/make_packet.py
 
+guide:       ## leader's field guide, one PDF (not part of `all`)
+	$(PY) src/make_field_guide.py
+
 all: pull walktimes clean_join model
 
 test:
 	$(PY) tests/test_lib.py
 
-.PHONY: pull walktimes clean_join model packet all test
+.PHONY: pull walktimes clean_join model packet guide all test

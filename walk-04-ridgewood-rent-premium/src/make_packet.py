@@ -24,6 +24,9 @@ from pathlib import Path
 
 import matplotlib
 matplotlib.use("Agg")
+# Dollar signs are money here, not math. Without this, "$96 ... $79 million"
+# renders as an italic math run with the dollars eaten.
+matplotlib.rcParams["text.parse_math"] = False
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.patches import FancyBboxPatch
