@@ -12,7 +12,7 @@ Abracadabra Magic Cafe.
 > distance from a train station. We'll split into four groups and head four
 > different directions.
 >
-> Here's the rule that keeps us together: **everybody walks fifteen minutes out,
+> Here's the rule that keeps us together: everybody walks fifteen minutes out,
 > then turns around and comes back.** Not to a destination — to a time. That way
 > we all cover about the same ground and we all get back here at the same time.
 >
