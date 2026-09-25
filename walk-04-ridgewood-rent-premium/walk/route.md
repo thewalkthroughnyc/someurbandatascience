@@ -8,7 +8,7 @@ Seneca Ave sits in the middle of the M-only cluster (Central Av → Knickerbocke
 Av → Seneca Av → Forest Av → Fresh Pond Rd → Middle Village-Metropolitan Av,
 with the Myrtle-Wyckoff transfer complex in between Knickerbocker and Seneca).
 Within the cluster the data shows rent runs highest at the Bushwick/Ridgewood
-end (Central Av, ~$2,400 median) and falls going deeper into Queens (Forest Av,
+end (Central Av, ~$2,300 median) and falls going deeper into Queens (Forest Av,
 Fresh Pond Rd, ~$1,900). Four teams, four directions.
 
 ## The four groups

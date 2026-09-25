@@ -18,7 +18,7 @@ held fixed so the coefficient means "near the M-only cluster" rather than
 "near some train"; none of them carries a reliable signal of its own.
 
 Within the cluster, rent isn't uniform: it runs highest at the
-Bushwick/Ridgewood end (around Central Av, ~$2,400 median) and falls going
+Bushwick/Ridgewood end (around Central Av, ~$2,300 median) and falls going
 deeper into Queens (Forest Av, Fresh Pond Rd, ~$1,900). A single
 "distance to nearest M-only station" term treats every M-only station
 alike and misses that west→east slope — it over-predicts the Queens end by
@@ -37,7 +37,7 @@ set from the station-by-station data, not from theory:
   → ~$1,910 around Fresh Pond Rd.
 - **South, toward Myrtle-Wyckoff Avs** — the Bushwick/Ridgewood end.
   Rent **rises, slightly**: ~$2,080 → ~$2,130, and keeps rising past
-  Myrtle-Wyckoff toward Central Av (~$2,400).
+  Myrtle-Wyckoff toward Central Av (~$2,300).
 - **East and west, perpendicular to the M line** — distance to that
   specific train vs. just being in Ridgewood. No data prediction; this is
   the live experiment, and it probes the analysis's own unresolved
@@ -100,23 +100,31 @@ processed/output file gets a `_mspine` tag so both runs coexist. Run it
 with `BAND_SPINE=M make all`. See the sample-frame check under Method for
 how the two compare.
 
-## Status (as of 2026-09-19)
+## Status (as of 2026-09-24)
 - Gates 1 & 2 cleared, all four series. Model complete; M-first everywhere
   in code, outputs, and docs.
 - Sample-frame robustness run (`_mspine` outputs) done and committed;
   consistent direction, not significant. Headline stays on the original
   band.
-- Substack post — Jordan is writing it; `substack_post.md` is a reference
-  draft, not the final.
-- Walk materials — Seneca Ave start; bearings A/B expectations set from
-  the station-by-station data.
+- Substack post — published.
+- Walk materials — Seneca Ave start; four bearings, expectations set from
+  the station-by-station data. East and west scouted on foot.
+- **Total premium — settled 2026-09-24: the 20-minute reference.** Within a
+  20-minute walk of an M-only station, 69,047 renter households pay about
+  $96/mo more than they would 20 minutes out — roughly **$79M/yr**. Built
+  off the combined M gradient (β = −0.00492, P0 = $2,200) and weighted by
+  `renter_hh`. The number swings hard on the reference distance ($178M at
+  30 min, $361M at 44), so it is always stated as "compared to living 20
+  minutes away." Lives on the packet back page and in the README finding
+  table. Unrelated to the ≤30-min realistic-range check under Method,
+  which is unchanged.
 - Open, all Jordan's: the closing thesis (who captures the Ridgewood
-  premium); the "total premium" number (build off the M gradient or drop);
-  physical scouting for stops 2–4.
+  premium).
 
 ## Deadlines
-- **Sat Sep 19 (today)** — Substack findings post. Immovable.
-- **Sat Sep 26** — the walk, meets at Seneca Ave (M).
+- **Sat Sep 19** — Substack findings post. Done.
+- **Sat Sep 26** — the walk, meets at Seneca Ave (M). Packets print Fri
+  Sep 25.
 
 ## How to work with me
 I direct this analysis; I don't write the code. That's a deliberate

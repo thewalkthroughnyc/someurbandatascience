@@ -25,15 +25,14 @@
   together at the regroup, not at the start.
 - **Back page: the value-capture sum.**
 
-  > Within a 30-minute walk of an M-only station, the average renter household
-  > pays about **$144/month** more than they would 30 minutes out. There are
-  > **101,820** such households. That's roughly **$175 million a year** in rent
+  > Within a 20-minute walk of an M-only station, the average renter household
+  > pays about **$96/month** more than they would 20 minutes out. There are
+  > **69,047** such households. That's roughly **$79 million a year** in rent
   > attributable to being near these stations. The MTA collects the fare.
 
-  <!-- Jordan: this is the 30-minute-reference version — my recommendation, not
-  your decision yet. The number swings hard on that reference: $79M at 20 min,
-  $356M at 44. Say "compared to living 30 minutes away" out loud or the number
-  doesn't mean anything. -->
+  <!-- Jordan's call, Sep 24: the 20-minute reference, not the 30. Say
+  "compared to living 20 minutes away" out loud or the number doesn't mean
+  anything — it swings to $178M at a 30-minute reference and $361M at 44. -->
 
 - **Closing question, printed on the back page:** **If proximity to a subway
   station generates a premium, who captures it?** Same wording as the Substack
