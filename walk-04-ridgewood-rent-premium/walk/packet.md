@@ -1,5 +1,11 @@
 # Packet layout (print Fri Sep 25 — fixed layout, only the numbers change)
 
+> **The packets are built.** `make packet` writes `walk/packet_north.pdf`,
+> `packet_south.pdf`, `packet_west.pdf` and `packet_east.pdf` — US Letter,
+> four pages each, one per group. The copy and the numbers live at the top
+> of `src/make_packet.py`; this file stays as the reasoning behind the
+> layout. Print each group's file for the people in that group.
+
 - **Route map**, start marked at Seneca Ave & Palmetto St, the four group routes,
   the six M-only stations.
 - **Your route**, printed per group (north / south / west / east) so nobody is

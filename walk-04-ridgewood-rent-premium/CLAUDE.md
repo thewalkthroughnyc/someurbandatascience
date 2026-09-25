@@ -94,6 +94,7 @@ ln(rent_i) = β₀ + β₁·walk_M_i + controls + ε_i
 | `src/02_walk_times.py` | `make walktimes` | OSMnx walk graph, multi-source Dijkstra x3 (M-only; full non-L and L as controls). Labels each tract's nearest M-only station. |
 | `src/03_clean_join.py` | `make clean_join` | Cleans, then plots two charts per rent series: the tract-level scatter (0–30 min) and the binned-median gradient (out to 60 min). Prints Gate 2. |
 | `src/04_model.py` | `make model` | Fits all four series; the M coefficient is the headline. Writes `model_summary.txt` and `coefficients.json`. |
+| `src/make_packet.py` | `make packet` | Walk-day only, not part of `make all`: builds the print-ready packet, one 4-page US Letter PDF per group, into `walk/`. Copy and numbers live at the top of the file. Uses matplotlib's PDF backend — no new dependency. |
 
 `src/config.py` holds every tunable knob. `src/lib.py` holds the tested
 logic (`clean_tracts`, `fit_model`, `is_limited_only`, etc.), parameterized

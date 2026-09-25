@@ -9,3 +9,6 @@ venv/
 .ipynb_checkpoints/
 .DS_Store
 .env
+
+# packet QA previews — regenerate with `python src/make_packet.py --preview`
+outputs/packet_preview/

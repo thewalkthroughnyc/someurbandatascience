@@ -12,9 +12,12 @@ clean_join:  ## 03 — clean + scatter, Gate 2
 model:       ## 04 — fit the M model, export coefficients.json for the p5 tool
 	$(PY) src/04_model.py
 
+packet:      ## print-ready walk packets, one PDF per group (not part of `all`)
+	$(PY) src/make_packet.py
+
 all: pull walktimes clean_join model
 
 test:
 	$(PY) tests/test_lib.py
 
-.PHONY: pull walktimes clean_join model all test
+.PHONY: pull walktimes clean_join model packet all test

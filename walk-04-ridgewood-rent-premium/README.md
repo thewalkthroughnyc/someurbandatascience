@@ -54,6 +54,7 @@ make walktimes   # 02: OSMnx walk times by station tier
 make clean_join  # 03: cleaning log + two charts per series → prints Gate 2
 make model       # 04: fits the model — the Ridgewood coefficient is the headline number
 make test        # offline tests on the transforms
+make packet      # print-ready walk packets, one PDF per group (walk day, not analysis)
 
 BAND_SPINE=M make all   # robustness: redraw the band around the M's own run instead;
                         # outputs get a _mspine tag and sit alongside the originals
@@ -68,7 +69,7 @@ src/           config.py (every knob) · lib.py (tested logic) · 01–04 (the p
 tests/         offline tests, incl. simulated-data recovery of a planted β
 data/          raw/ (cached downloads, gitignored) · processed/ (committed, small)
 outputs/       figures/ · cleaning_log.md · tool/coefficients.json → feeds the p5 sketch
-walk/          route.md · packet.md · script.md — the sidewalk layer, starts at Seneca Ave
+walk/          route.md · packet.md · script.md · packet_*.pdf — the sidewalk layer, starts at Seneca Ave
 ```
 
 ## Honest limitations
