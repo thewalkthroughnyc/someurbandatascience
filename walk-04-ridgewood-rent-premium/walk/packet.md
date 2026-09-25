@@ -40,6 +40,9 @@
   "compared to living 20 minutes away" out loud or the number doesn't mean
   anything — it swings to $178M at a 30-minute reference and $361M at 44. -->
 
+- **The model's URL, on two pages.** On the regroup page, where people will
+  actually open it on a phone, and again on the back page:
+  `ridgewood-rent-gradient.netlify.app`.
 - **Closing question, printed on the back page:** **If proximity to a subway
   station generates a premium, who captures it?** Same wording as the Substack
   post, so anyone who came from the post arrives already holding the question.

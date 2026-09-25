@@ -1,6 +1,6 @@
 # Walk No. 04 — The Ridgewood Rent Premium
 
-**Status: in progress** — model complete: rent rises the closer you get to Ridgewood's M-only stations, a real and robust finding · walk **Sat Sep 26**, meets at the Seneca Ave (M) station · [RSVP](https://luma.com/yd7jpq91)
+**Status: in progress** — model complete: rent rises the closer you get to Ridgewood's M-only stations, a real and robust finding · walk **Sat Sep 26**, meets at the Seneca Ave (M) station · [RSVP](https://luma.com/yd7jpq91) · [try the model](https://ridgewood-rent-gradient.netlify.app/)
 
 Part of [The Walkthrough NYC](https://thewalkthroughnyc.substack.com/), a public math walk series: publish a question, build the analysis in the open, then test the finding with strangers on a sidewalk.
 

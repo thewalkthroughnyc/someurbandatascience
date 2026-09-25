@@ -53,6 +53,8 @@ _PREMIUM_RAW = ("Within a 20-minute walk of an M-only station, the average "
                 "near these stations.")
 PREMIUM = textwrap.fill(_PREMIUM_RAW, 62) + "\n\nThe MTA collects the fare."
 QUESTION = "If proximity to a subway station\ngenerates a premium,\nwho captures it?"
+SUBSTACK = "thewalkthroughnyc.substack.com"
+MODEL_URL = "ridgewood-rent-gradient.netlify.app"
 
 
 def trimmed_map():
@@ -201,6 +203,10 @@ def regroup(fig):
     fig.text(0.08, 0.148, "Then we put everyone's guesses on one chart against the model —\n"
                           "four directions, same fifteen minutes.",
              fontsize=10.5, color=INK, ha="left", va="top", linespacing=1.5)
+    fig.text(0.08, 0.098, "Try it yourself, on your phone:", fontsize=10.5,
+             color=INK, ha="left", va="top")
+    fig.text(0.08, 0.073, MODEL_URL, fontsize=13, color=BLUE, ha="left",
+             va="top", fontweight="bold")
     footer(fig, "Regroup")
 
 
@@ -222,10 +228,12 @@ def back(fig):
     fig.text(0.08, 0.175, "The analysis behind this walk — every number, every judgment call —\n"
                           "is public:",
              fontsize=10.5, color=INK, ha="left", va="top", linespacing=1.5)
-    fig.text(0.08, 0.132, "thewalkthroughnyc.substack.com", fontsize=12,
-             color=BLUE, ha="left", va="top", fontweight="bold")
-    fig.text(0.08, 0.098, "Try the model yourself:  " + "_" * 34, fontsize=10.5,
-             color=MUTED, ha="left", va="top")
+    fig.text(0.08, 0.138, SUBSTACK, fontsize=12.5, color=BLUE, ha="left",
+             va="top", fontweight="bold")
+    fig.text(0.08, 0.106, "Put your own rent into the model:", fontsize=10.5,
+             color=INK, ha="left", va="top")
+    fig.text(0.08, 0.079, MODEL_URL, fontsize=12.5, color=BLUE, ha="left",
+             va="top", fontweight="bold")
     footer(fig, "Rent data: ACS 2020–2024 5-year, median gross rent")
 
 

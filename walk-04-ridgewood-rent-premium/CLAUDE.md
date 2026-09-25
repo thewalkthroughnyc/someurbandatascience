@@ -130,6 +130,12 @@ how the two compare.
   minutes away." Lives on the packet back page and in the README finding
   table. Unrelated to the ≤30-min realistic-range check under Method,
   which is unchanged.
+- Interactive model is live at <https://ridgewood-rent-gradient.netlify.app/> — printed on the
+  packet's regroup and back pages. Checked 2026-09-24: the figures it
+  shows (227 tracts, ~half a percent per minute, 2BR t = -4.53) match
+  `outputs/tool/coefficients.json`. The deployed copy and
+  `outputs/tool/premium_tool.html` are separate, so they can drift; re-check
+  after any rerun of `make model`.
 - Open, all Jordan's: the closing thesis (who captures the Ridgewood
   premium).
 
