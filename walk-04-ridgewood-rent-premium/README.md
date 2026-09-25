@@ -51,7 +51,7 @@ pip install -r requirements.txt
 export CENSUS_API_KEY=...   # free + instant: https://api.census.gov/data/key_signup.html
 make pull        # 01: band, tracts, ACS rent (blended + per-bedroom) → prints Gate 1
 make walktimes   # 02: OSMnx walk times by station tier
-make clean_join  # 03: cleaning log + the Ridgewood scatter, per series → prints Gate 2
+make clean_join  # 03: cleaning log + two charts per series → prints Gate 2
 make model       # 04: fits the model — the Ridgewood coefficient is the headline number
 make test        # offline tests on the transforms
 

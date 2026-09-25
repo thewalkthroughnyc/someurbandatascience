@@ -126,3 +126,25 @@ RENT_TOPCODE = 3500        # ACS top-codes median gross rent ("$3,500+").
                            # Bedford end, where true medians exceed it.
 
 GATE1_COMFORTABLE_N = 120  # suggestion only — the gate decision is yours
+
+# ---------------------------------------------------------------- charts
+CHART_RENT_YLIM = (1200, 3600)  # rent window the scatters display ($/mo).
+                                # The band is market-rate Ridgewood; a handful
+                                # of deeply subsidized tracts sit far below it
+                                # and, left in, squash everything else into the
+                                # top half of the frame. Tracts outside the
+                                # window are COUNTED IN A CORNER NOTE on the
+                                # chart, never silently dropped — and they stay
+                                # in the model regardless; this is a display
+                                # choice only. Set to None for matplotlib's
+                                # automatic range.
+
+BINNED_EDGES = [0, 15, 30, 45, 60]  # walk-minute bins for the binned-gradient
+                                    # chart. The scatter's 0-30 window is the
+                                    # flat part of the curve; the gradient only
+                                    # becomes visible once the farther tracts
+                                    # are in the frame, so this chart runs to 60.
+                                    # Past that it stops reading as "a walk" at
+                                    # all — Jordan's call, 2026-09-24.
+BINNED_MIN_N = 5                    # skip a bin thinner than this: a median of
+                                    # three tracts is not worth a dot.

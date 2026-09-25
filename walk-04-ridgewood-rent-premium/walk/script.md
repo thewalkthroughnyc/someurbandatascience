@@ -13,7 +13,7 @@ Abracadabra Magic Cafe.
 > different directions.
 >
 > Here's the rule that keeps us together: everybody walks fifteen minutes out,
-> then turns around and comes back.** Not to a destination — to a time. That way
+> then turns around and comes back. Not to a destination — to a time. That way
 > we all cover about the same ground and we all get back here at the same time.
 >
 > **North group** — up Palmetto, right on Woodward Ave, left on Putnam Ave,

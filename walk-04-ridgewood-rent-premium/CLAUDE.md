@@ -57,9 +57,20 @@ ln(rent_i) = β₀ + β₁·walk_M_i + controls + ε_i
 - Run once per rent series (combined/1BR/2BR/3BR) as a robustness check;
   results consolidated into one `model_summary.txt` and one
   `coefficients.json`.
-- One chart per series: `scatter_rent_vs_ridgewood*.png`, restricted to
-  the realistic 0–30 min walking range (both the display and the lowess
-  fit, so far-away tracts don't smooth out the local pattern).
+- Two charts per series. `scatter_rent_vs_ridgewood*.png` is the
+  tract-level scatter, restricted to the realistic 0–30 min walking range
+  (both the display and the lowess fit, so far-away tracts don't smooth
+  out the local pattern), with the y-axis held to `CHART_RENT_YLIM` so a
+  few deeply subsidized tracts don't squash the market-rate spread — they
+  stay in the model and are counted in a note on the chart.
+  `gradient_binned*.png` is the one that reads from across a sidewalk:
+  median rent per walk-time bin out to 60 min (`BINNED_EDGES`), with
+  bootstrapped 95% intervals and the full-sample model as a dashed
+  reference. It runs to 60 rather than 30 because the 0–30 window is the
+  flat part of the curve, and past 60 it stops reading as "a walk" —
+  Jordan's call, 2026-09-24. Its title is deliberately descriptive: the
+  combined, 1BR and 2BR series fall across the bins, but **3BR rises**
+  ($2,364 → $2,634), so the chart must not assert a direction.
 - Realistic-range check (tracts with `walk_M_min` ≤ 30): the raw
   correlation looks stronger, but the controlled model loses power — 3 of
   4 series stop being significant. The full-sample result is the reliable
@@ -81,7 +92,7 @@ ln(rent_i) = β₀ + β₁·walk_M_i + controls + ε_i
 |---|---|---|
 | `src/01_pull_acs.py` | `make pull` | Stations → tag the M-only tier (complex-aware) → corridor spine → band → TIGER tracts → ACS pull (blended + per-bedroom). Prints Gate 1. |
 | `src/02_walk_times.py` | `make walktimes` | OSMnx walk graph, multi-source Dijkstra x3 (M-only; full non-L and L as controls). Labels each tract's nearest M-only station. |
-| `src/03_clean_join.py` | `make clean_join` | Cleans + plots the Ridgewood scatter for all four rent series. Prints Gate 2. |
+| `src/03_clean_join.py` | `make clean_join` | Cleans, then plots two charts per rent series: the tract-level scatter (0–30 min) and the binned-median gradient (out to 60 min). Prints Gate 2. |
 | `src/04_model.py` | `make model` | Fits all four series; the M coefficient is the headline. Writes `model_summary.txt` and `coefficients.json`. |
 
 `src/config.py` holds every tunable knob. `src/lib.py` holds the tested
