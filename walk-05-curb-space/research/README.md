@@ -10,7 +10,31 @@ Notes are summaries, not quotes. Verify any figure against the original before p
 
 ---
 
-## 1. Does removing parking hurt business?
+## 1. Start here
+
+### volker-handy-2021
+- title: Economic impacts on local businesses of investments in bicycle and pedestrian infrastructure: a review of the evidence
+- authors: Volker, J. M. B.; Handy, S. L.
+- year: 2021
+- venue: Transport Reviews 41(4), 401–431
+- type: peer-reviewed
+- url: https://doi.org/10.1080/01441647.2021.1912849
+- doi: 10.1080/01441647.2021.1912849
+- note: Review of 23 US and Canadian studies, 15 of which quantified an economic impact on local businesses. Walking/biking facilities generally had positive or non-significant effects on nearby retail and food businesses; possible negative effect on auto-centric businesses. Best entry point — its bibliography maps the field.
+
+---
+
+## 2. Does removing parking hurt business?
+
+### arancibia-2019
+- title: Measuring the Local Economic Impacts of Replacing On-Street Parking With Bike Lanes: A Toronto (Canada) Case Study
+- authors: Arancibia, D.; Farber, S.; Savan, B.; Verlinden, Y.; Smith Lea, N.; Allen, J.; Vernich, L.
+- year: 2019
+- venue: Journal of the American Planning Association 85(4), 463–481
+- type: peer-reviewed
+- url: https://doi.org/10.1080/01944363.2019.1638816
+- doi: 10.1080/01944363.2019.1638816
+- note: Toronto removed 136 on-street spaces on Bloor St for a 2016 pilot bike lane. Case-control, pre-post design surveying merchants and shoppers. Monthly customer spending and customer counts both increased. Strongest design on this exact question.
 
 ### clean-air-partnership-2010
 - title: Bike Lanes, On-Street Parking and Business Year 2 Report: A Study of Bloor Street in Toronto's Bloor West Village
@@ -23,7 +47,7 @@ Notes are summaries, not quotes. Verify any figure against the original before p
 
 ---
 
-## 2. Pricing the curb
+## 3. Pricing the curb
 
 ### pierce-shoup-2013
 - title: Getting the Prices Right: An Evaluation of Pricing Parking by Demand in San Francisco
@@ -38,7 +62,7 @@ Notes are summaries, not quotes. Verify any figure against the original before p
 
 ---
 
-## 3. NYC-specific
+## 4. NYC-specific
 
 ### nycdot-2022-streets-for-recovery
 - title: Streets for Recovery: The Economic Benefits of the NYC Open Streets Program
@@ -58,16 +82,19 @@ Notes are summaries, not quotes. Verify any figure against the original before p
 - url: https://wagner.nyu.edu/files/faculty/publications/Open%20Restaurants%20in%20New%20York.pdf
 - note: 12,000+ establishments set up on sidewalks or in parking lanes (~12x the pre-pandemic Sidewalk Café program). Shift toward outer boroughs, majority-nonwhite and lower-income community districts.
 
-### park-smarter-nyc
+### kapshikar-2023
 - title: PARK Smarter: Lessons in Curb Pricing for New York City
-- venue: eScholarship (University of California)
+- authors: Kapshikar, P. (faculty advisor: Donald Shoup)
+- year: 2023
+- venue: UCLA Institute of Transportation Studies, capstone project (client: NYC DOT Parking Planning and Policy)
 - type: research-report
-- url: https://escholarship.org/content/qt58819232/qt58819232.pdf
-- note: Lessons for NYC curb pricing. Confirm authors and year from the PDF.
+- url: https://escholarship.org/uc/item/58819232
+- doi: 10.17610/T6MS5G
+- note: Written for NYC DOT as it considers demand-responsive pricing for metered spaces — applies the SFpark/Shoup approach to New York. Bridges sections 3 and 4.
 
 ---
 
-## 4. Curb management — the menu of alternative uses
+## 5. Curb management — the menu of alternative uses
 
 ### itf-2018-shared-use-city
 - title: The Shared-Use City: Managing the Curb
@@ -90,7 +117,7 @@ Notes are summaries, not quotes. Verify any figure against the original before p
 
 ---
 
-## 5. Putting a dollar value on the space itself
+## 6. Putting a dollar value on the space itself
 
 ### litman-parking-costs
 - title: Transportation Cost and Benefit Analysis II — Parking Costs
@@ -129,9 +156,10 @@ Notes are summaries, not quotes. Verify any figure against the original before p
 ---
 
 ## Suggested reading order
-1. clean-air-partnership-2010
-2. pierce-shoup-2013
-3. NYC section (section 3)
-4. Curb management and land-value sections (4, 5) as needed for the walk's math
+1. volker-handy-2021
+2. arancibia-2019, clean-air-partnership-2010
+3. pierce-shoup-2013 → kapshikar-2023
+4. NYC section (section 4)
+5. Curb management and land-value sections (5, 6) as needed for the walk's math
 
 Peer-reviewed work carries the strongest methods; agency reports are most useful for NYC figures and framing.
