@@ -14,21 +14,12 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Walk 07 — raw/intermediate pipeline outputs (large, re-generatable)
-# The processed GeoJSON in web/assets/ is intentionally NOT ignored — it's small and committed.
-walks/walk-07-far/pipeline/cache/
+# Shapefile components — large, re-downloadable
 *.shp
 *.dbf
 *.shx
 *.prj
 *.cpg
-walks/walk-07-far/pipeline/*.geojson
-
-# Bedford corridor project — raw downloads / route cache / OSRM extract,
-# all large and re-generatable. web/data/corridor.json IS committed
-# (small, and shows the site's current, honest data state).
-bedford-corridor/data_cache/
-bedford-corridor/*.egg-info/
 
 # pytest
 .pytest_cache/
