@@ -23,7 +23,7 @@ Abracadabra Magic Cafe.
 > **South group** — west on Seneca, a block over make a left on Gates Ave, and
 > head down toward Knickerbocker Ave.
 >
-> **West group** — with me. Down Seneca to Grover Cleveland Park, right on Hart,
+> **West group** — Down Seneca to Grover Cleveland Park, right on Hart,
 > and out to the intersections.
 >
 > **East group** — east along Seneca toward Evergreen Park.
