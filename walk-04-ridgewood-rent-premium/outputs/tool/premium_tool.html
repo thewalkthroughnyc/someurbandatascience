@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Ridgewood Rent Gradient</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -447,30 +451,6 @@ svg.chart { display: block; width: 100%; height: auto; }
   padding-top: 4px;
 }
 
-/* ---------- caveats ---------- */
-
-.caveats { display: flex; flex-direction: column; gap: 13px; }
-
-.caveat {
-  display: grid;
-  grid-template-columns: 15px 1fr;
-  gap: 11px;
-  font-size: 15.5px;
-  line-height: 1.5;
-  color: var(--ink-2);
-}
-
-.caveat::before {
-  content: "";
-  width: 3px;
-  height: 100%;
-  background: var(--line);
-  border-radius: 2px;
-  grid-column: 1;
-}
-
-.caveat b { color: var(--ink); font-weight: 600; }
-
 footer {
   font-family: var(--mono);
   font-size: 11.5px;
@@ -576,7 +556,7 @@ footer b { color: var(--ink-2); font-weight: 500; }
   <section class="panel" aria-labelledby="strip-title">
     <div class="panel-head">
       <h2 class="panel-title" id="strip-title">Along the line, west to east</h2>
-      <span class="panel-note">Observed medians</span>
+      <span class="panel-note">Observed medians · within 0.4 mi</span>
     </div>
     <p style="margin:0;font-size:15.5px;color:var(--ink-2)">
       The premium isn't flat across the cluster. It runs highest at the Bushwick
@@ -587,27 +567,6 @@ footer b { color: var(--ink-2); font-weight: 500; }
     <div class="strip-ends">
       <span>← cheaper</span>
       <span>pricier →</span>
-    </div>
-  </section>
-
-  <section class="panel" aria-labelledby="caveat-title">
-    <div class="panel-head">
-      <h2 class="panel-title" id="caveat-title">What this can't tell you</h2>
-    </div>
-    <div class="caveats">
-      <p class="caveat"><b>It's a description, not a cause.</b> Being near the M
-        doesn't make rent go up. Station locations and neighborhood change are
-        tangled together, and one snapshot can't pull them apart.</p>
-      <p class="caveat"><b>"Near the M" and "in Ridgewood" are hard to separate.</b>
-        Every M-only station sits in one corner of the map, so the gradient may be
-        picking up the neighborhood's own trajectory as much as the train.</p>
-      <p class="caveat"><b>Redrawing the sample around the M weakens it.</b> Built
-        on a tighter band, the effect points the same way but isn't statistically
-        significant — the wide sample's power comes from including tracts far from
-        any M stop.</p>
-      <p class="caveat"><b>These are tract medians, not listings.</b> Census
-        five-year figures include rent-stabilized units, so what a mover faces
-        today is probably steeper than what's drawn here.</p>
     </div>
   </section>
 
@@ -628,14 +587,15 @@ const MODEL = {
   "3br":    { b1: -0.00433, p0: 2570, n: 188, t: -3.86, label: "3 BR" }
 };
 
-// Observed median rent for tracts within ~0.6 km of each M-only station,
-// in line order west (Bushwick) to east (Queens).
+// Observed median rent for tracts whose center point is within 0.4 mi of each
+// M-only station, in line order west (Bushwick) to east (Queens). Same radius
+// as walk/route.md and the field guide, so the page matches the walk sheets.
 const STATIONS = [
-  { name: "Central Av",      n: 7, rent: 2396 },
-  { name: "Knickerbocker Av", n: 8, rent: 2017 },
-  { name: "Myrtle–Wyckoff Avs", n: 8, rent: 2132, note: "L+M transfer" },
-  { name: "Seneca Av",       n: 7, rent: 2083, note: "walk starts here" },
-  { name: "Forest Av",       n: 7, rent: 1928 },
+  { name: "Central Av",      n: 8, rent: 2278 },
+  { name: "Knickerbocker Av", n: 9, rent: 2116 },
+  { name: "Myrtle–Wyckoff Avs", n: 9, rent: 2134, note: "L+M transfer" },
+  { name: "Seneca Av",       n: 9, rent: 2083, note: "walk starts here" },
+  { name: "Forest Av",       n: 8, rent: 1926 },
   { name: "Fresh Pond Rd",   n: 6, rent: 1913 },
   { name: "Middle Village–Metropolitan Av", n: 1, rent: 1980 }
 ];
